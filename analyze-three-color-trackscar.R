@@ -1,6 +1,6 @@
 source("load-libraries.R")
 
-recoveryCounts <- read.csv("dryad/2016-Maxwell-Magwene-three-color-trackscar.csv")
+recoveryCounts <- read.csv("2016-Maxwell-Magwene-three-color-trackscar.csv")
 
 ## This makes a version of the counts to add to the two-color data
 ## This can be done because the first growth of the recovery data is basically

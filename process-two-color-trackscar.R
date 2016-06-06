@@ -48,8 +48,7 @@ heatStressCandidatesWithAge <-
            (media == "YPD") &
            ((strain == "1587") | (temp %in% c("30C", "37C"))) & # 37C and 30C. all temps for s288c
            (time == 6) & # only experiments that were 6hr
-           (growth < 10)) %>% 
-    transform(type = candidateStrains[ as.character(strain) ])
+           (growth < 10))
 
 
 ## include the first interval of the recovery data
@@ -57,22 +56,21 @@ heatStressCandidatesWithAge <-
     rbind(heatStressCandidatesWithAge,
           recoveryCountsForMortality[,colnames(heatStressCandidatesWithAge)]) # defined in process-three-color-trackscar.R
 
-write.csv(transform(heatStressCandidatesWithAge),
-          "dryad/2016-Maxwell-Magwene-two-color-trackscar.csv", row.names=FALSE)
-
-
-######## Process data for fig S1
+q## include the haploid S288C data for fig S1
 
 ## These are the haploid S288C data shown to compare mother cell
 ## and daughter cell fecundity
-
 haploidCounts <- subset(allCounts,
                         folder %in% c("2015-03-31_S288C_30C",
                                       "2015-04-01_S288C_30C",
                                       "2014_03_11_WGA_microscopy")) %>%
     subset(strain %in% c("CMY1","1638"))
 
-write.csv(haploidCounts, "dryad/2016-Maxwell-Magwene-two-color-trackscar-haploid-S288C.csv", row.names=F)
+heatStressCandidatesWithAge <- rbind(heatStressCandidatesWithAge,
+                                     haploidCounts[,colnames(heatStressCandidatesWithAge)])
+
+write.csv(transform(heatStressCandidatesWithAge),
+          "2016-Maxwell-Magwene-two-color-trackscar.csv", row.names=FALSE)
 
 ## This is a timeseries experiment with different number of hours
 ## between first and second stains
@@ -97,6 +95,6 @@ with(timeseriesCounts,
          growth=growth,
          first=first,
          last=second)) %>%
-    write.csv("dryad/2016-Maxwell-Magwene-two-color-trackscar-timeseries.csv",row.names=F)
+    write.csv("2016-Maxwell-Magwene-two-color-trackscar-timeseries.csv",row.names=F)
                                  
 

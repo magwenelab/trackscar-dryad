@@ -1,4 +1,4 @@
-#+TITLE: Data for "The Quick and the Dead"
+#+TITLE: Data and Analysis for "The Quick and the Dead"
 #+AUTHOR: Colin S. Maxwell and Paul M. Magwene
 #+DATE: June 2016
 
@@ -10,9 +10,18 @@ the paper "The Quick and the Dead: Microbial Demography at the Yeast
 Thermal Limit" and provides links to the code used to generate figures
 and the statistical analysis in the paper. 
 
+* Requirements
+
+The scripts and data files should all be in the same folder. 
+
 * Files in this submission
 
+This section contains a list of the data files included in this
+submission and gives:
 
+1) A brief description of how the data were generated
+2) The name of the script (if any) that produced the data
+3) A description of the column names in the data
 
 ** 2016-Maxwell-Magwene-100genomes-temperature-growth.csv
 
@@ -72,7 +81,7 @@ author of the paper.
 
 These data were collected by manually scoring the mitochondrial
 morphology of strains containing a mitochondrially localized GFP at
-both 30C and 35.5C.
+both 30C and 35.5C in 'real time' (no images collected) in an Axio Imager.
 
 See volume 5 pgs 12 and 14 of Colin Maxwell's lab notebook for the raw
 data.
@@ -80,7 +89,7 @@ data.
 ------------------------------------------------------------
 
 - strain :: The CMY number of the strain. CMY stands for Colin Maxwell
-     Yeast. see TableS1 for a mapping to the PMY number and genotype
+     Yeast. see Table S1 for a mapping to the PMY number and genotype
      of the strain.
 - temp :: The temperature that the data were collected at
 - rep :: The replicate number of the data
@@ -96,6 +105,16 @@ data.
 
 ** 2016-Maxwell-Magwene-mito-trackscar.csv
 
+This contains data about the morphology and fecundity of several
+strains of yeast at both 30C and 35.5C. These data were collected
+using the DeltaVision and then scoring the morphology and counting the
+budscars based on the resulting images. The file was generated from
+the original count data files from the script
+[[file:process-mito-trackscar-data.R]]. To get the actual raw data in the
+script, please email the corresponding author of the paper.
+
+------------------------------------------------------------
+
 - folder :: The name of the folder containing the original data
 - experiment_ID	:: The experiment ID of the data
 - counts_file :: The name of the file containing the original data
@@ -105,17 +124,23 @@ data.
      for the first stain. "for_age" means that older cells were sought
      out specifically. 
 - temp :: The temperature that the data was collected at.
-- media ::
-- who_counted ::
-- number_of_colors ::
-- time ::
-- strain ::	
-- growth ::	
-- first	::
-- second ::	
-- mitos ::
+- media :: The media that the cells were grown in 
+- who_counted :: Who counted the buds (CSM = Colin S. Maxwell)
+- number_of_colors :: Either "2" or "3" color TrackScar
+- time :: Hours between stains
+- strain :: CMY (Colin Maxwell Yeast) number and the temperature. See
+     Table S1 for a mapping from CMY numbers to other data.
+- growth :: Number of new scars produced during the experiment (should
+     be called 'fecundity', but is called 'growth' for historical
+     reasons). growth = second - first
+- first	:: Number of scars stained with the first stain
+- second :: The number of scars stained with the second stain.
+- mitos :: The mito morphology class of the cell: 't' = threads; 'c' =
+     clumps; 'tc' = thread & clumps; 'n' = no mitochondria.
 
 ** 2016-Maxwell-Magwene-three-color-trackscar.csv
-** 2016-Maxwell-Magwene-two-color-trackscar-haploid-S288C.csv
+
+
+
 ** 2016-Maxwell-Magwene-two-color-trackscar-timeseries.csv
 ** 2016-Maxwell-Magwene-two-color-trackscar.csv
