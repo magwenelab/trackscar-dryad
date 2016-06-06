@@ -1,0 +1,507 @@
+#+TITLE: Code used to generate statistics
+
+* Results
+** Increased mortality explains slow population growth for some heat sensitive strains
+
+ #+BEGIN_QUOTE
+ Remarkably, and in contrast with the other two strains we examined,
+ the distribution of fecundity among YJM693 cells that survived heat
+ stress was identical to that of unstressed cells (Kolmogorov-Smirnov
+ test; p = 0.64).
+ #+END_QUOTE
+
+
+ This code runs the KS test to compare the fecundity of live
+ stressed cells to unstressed cells.
+
+ #+BEGIN_SRC R :results value :colnames yes
+   source("analyze-two-color-trackscar.R")
+   source("analyze-three-color-trackscar.R")
+
+   ## This is what happens when you decide to not use a database
+   ## All this does is bring the sundry data frames together
+   ## so that they can be compared with one another.
+
+   strains = c(1513, 1523, 1587)
+
+   listOfData = list(
+       ## These cells were grown for 6 hr at 37C, then were allowed
+       ## to recovery at 30C.
+       live37 = subset(
+               recoveryCounts,
+               (growth2 > 0) &
+               (strain %in% strains) &
+               (temp %in% c("37C", "41.5C")) & # S288C recovery is at 41.5
+               (recoveryTemp == "30C recovery") &
+               (recoveryTime == "6 hr recovery"))[,c("growth1", "first", "experiment", "strain")],
+       dead37 = subset(
+               recoveryCounts,
+               (growth2 == 0) &
+               (strain %in% strains) &
+               (temp %in% c("37C", "41.5C")) &
+               (recoveryTemp == "30C recovery") &
+               (recoveryTime == "6 hr recovery"))[,c("growth1", "first", "experiment", "strain")],
+       ## This is the 30C data to compare it to
+       noheat = subset(
+           heatStressCandidates,
+           (strain %in% strains) &
+           (temp %in% c("30C"))&
+           (growth < 10))[,c("growth", "first", "last", "folder", "strain")]
+       )
+
+   liveDeadUnstressed = ldply(
+       listOfData,
+       function(x){
+           if( "growth1" %in% colnames(x)){ # 3 color data
+               with(x,
+                    data.frame(strain=strain,
+                               growth=growth1,
+                               first = first,
+                               second=first+growth1)
+                    )
+           }else{ # 2 color data
+               with(x, 
+                    data.frame(strain = strain,
+                               growth=growth,
+                               first = first,
+                               second = last))}},
+       .id = "type") %>%
+       subset(!is.na(growth))
+
+   ddply(liveDeadUnstressed,
+         .(strain),
+         plyr::summarize, 
+         p = ks.test(growth[type == "live37"],
+                     growth[type == "noheat"])$p.value)
+
+   # count(liveDeadUnstressed, c("strain", "type"))
+ #+END_SRC
+
+ #+RESULTS:
+ | strain |                    p |
+ |--------+----------------------|
+ |   1513 |    0.637424252607437 |
+ |   1523 | 3.33066907387547e-16 |
+ |   1587 |                    0 |
+
+ 
+
+ 
+** Fecundity can be positively or negatively associated with age during stress
+
+*** Linear model fecundity p-values
+
+#+BEGIN_QUOTE
+At 30°C, average fecundity of cohorts of YJM693 increased
+slightly with age, nor whereas the fecundity of cohorts of YJM996 was
+not significantly affected by age (Fig. 5a)(linear model, p = 0.016
+and p=0.68, respectively).
+#+END_QUOTE
+
+#+BEGIN_QUOTE
+In contrast, at 35.5°C, replicative age significantly affects the
+average fecundity of a cohort in the strains YJM693 and YJM996 (linear
+model, p=0.048 and p=0.00076, respectively).
+#+END_QUOTE
+
+#+BEGIN_SRC R :colnames yes :session linear-model-fecundity
+  source("fit-linear-models.R")
+
+  ## This just prints the p-value associated with the t-test of the
+  ## significance of the slope
+   lmSummaries %>% 
+      subset(var == "first") %>% 
+      dcast( strain ~ temp, value.var = "Pr...t..") %>%
+      plyr::summarize(
+      strain,
+      `30C` = round(`30C`, 5),
+                `37C` = round(`37C`, 5))
+#+END_SRC
+
+#+RESULTS:
+| strain |     30C |     37C |
+|--------+---------+---------|
+|   1513 | 0.01564 | 0.04885 |
+|   1523 | 0.68425 | 0.00076 |
+|   1587 | 0.07558 | 0.57134 |
+
+#+BEGIN_QUOTE
+The average fecundity of a cohort of S288C was not affected by its age
+at any temperature (Fig. S5).
+#+END_QUOTE
+
+#+BEGIN_SRC R :colnames yes
+source("fit-linear-models.R")
+
+## This just prints the p-value associated with the t-test of the
+## significance of the slope
+lmSummaries2 <- ldply(lm2,
+                      function(x){
+                          out <- summary(x)$coefficients
+                          data.frame( var = c("intercept", "first"), out)
+                      }) %>%
+    subset(var == "first") %>% 
+    plyr::summarize(temp, `p` = round(`Pr...t..`, 5))
+#+END_SRC
+
+#+RESULTS:
+| temp |       p |
+|------+---------|
+|   30 | 0.92532 |
+|   37 |  0.9974 |
+| 38.5 | 0.55688 |
+|   40 | 0.59948 |
+| 41.5 | 0.59471 |
+
+*** Linear model fecundity slopes
+
+#+BEGIN_QUOTE
+Interestingly, while YJM693 cells produce an average of 0.14 ± 0.13
+fewer daughters in six hours per cohort when heat stressed, YJM996
+cells produce an average of 0.37 ± 0.15 more daughters in six hours
+per cohort (intervals are 95% confidence intervals of the
+mean)(Fig. 5a).
+#+END_QUOTE
+
+
+This is the estimate of the relationship between the age and fecundity
+
+#+BEGIN_SRC R :colnames yes
+  source("fit-linear-models.R")
+  lmSummaries %>% 
+      subset(var == "first") %>% 
+      dcast( strain ~ temp, value.var = "Estimate")  %>%
+      plyr::summarize(
+         strain,
+         `30C` = round(`30C`, 3),
+         `37C` = round(`37C`, 3))
+#+end_src
+
+#+RESULTS:
+| strain |    30C |    37C |
+|--------+--------+--------|
+|   1513 |    0.1 | -0.139 |
+|   1523 |  0.041 |  0.334 |
+|   1587 | -0.085 | -0.021 |
+
+#+begin_src R :results value :colnames yes
+  source("fit-linear-models.R")
+  lmSummaries %>% 
+      subset(var == "first") %>% 
+      dcast( strain ~ temp, value.var = "Std..Error")  %>%
+      plyr::summarize(
+         strain,
+         `30C` = round(`30C` * 1.98, 3),
+         `37C` = round(`37C` * 1.98, 3))
+#+end_src
+
+#+RESULTS:
+| strain |   30C |   37C |
+|--------+-------+-------|
+|   1513 | 0.073 | 0.137 |
+|   1523 | 0.196 | 0.172 |
+|   1587 | 0.088 | 0.071 |
+
+
+** Heat stress can cause premature senescence or early life mortality
+
+*** Probability of death with age in YJM693
+
+#+BEGIN_QUOTE
+Using logistic regression, we estimate that there is a 20% (95%
+CI ± 6%) increase in the probability of death for each additional
+unit of replicative age in this strain during heat stress.
+#+END_QUOTE
+
+#+BEGIN_SRC R :results output
+  source("analyze-two-color-trackscar.R")
+
+  mortality1513 <- heatStressCandidatesWithAge %>%
+      subset(strain %in% c(1513)) %>%
+      subset(temp == "37C") %>%
+      transform(dead = ifelse(growth < 4, 1, 0)) %>%
+      glm(dead~first, data = .,  family="binomial")
+  
+  cat("**** Summary of regression:\n\n")
+  summary(mortality1513)
+  cat("**** Confidence intervals:\n\n")
+  confint(mortality1513)
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+**** Summary of regression:
+
+
+Call:
+glm(formula = dead ~ first, family = "binomial", data = .)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-1.6346  -0.9263  -0.8586   1.3691   1.5340  
+
+Coefficients:
+            Estimate Std. Error z value Pr(>|z|)    
+(Intercept) -0.99191    0.08496 -11.675  < 2e-16 ***
+first        0.18390    0.02572   7.149 8.72e-13 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 2452.1  on 1849  degrees of freedom
+Residual deviance: 2399.9  on 1848  degrees of freedom
+AIC: 2403.9
+
+Number of Fisher Scoring iterations: 4
+
+**** Confidence intervals:
+
+                 2.5 %     97.5 %
+(Intercept) -1.1595791 -0.8264455
+first        0.1337114  0.2346053
+#+end_example
+
+The estimate of the increase in mortality is 20%:
+
+#+BEGIN_SRC R
+
+exp(0.183)
+
+#+END_SRC
+
+#+RESULTS:
+: 1.20081440808083
+
+95% confidence interval width:
+
+#+BEGIN_SRC R
+
+exp(0.183) - exp(0.13)
+
+#+END_SRC
+
+#+RESULTS:
+: 0.061986024756209
+
+
+* Supplementary results
+
+** Trackscar minimally affects cellular physiology
+
+ #+BEGIN_QUOTE
+ Using TrackScar we estimated the average division time to be 73.9
+ minutes for haploid cells of the genomic reference strain S288c grown
+ in rich-media conditions.
+ #+END_QUOTE
+
+ The approach here is to fit a linear regression to the number of buds
+ added for this timeseries.
+
+ #+BEGIN_SRC R :colnames yes
+   source("load-libraries.R")
+   timeseriesCounts <- read.csv("dryad/2016-Maxwell-Magwene-two-color-trackscar-timeseries.csv")
+   ## Note that CMY1 is the S288C genomic reference strain and is haploid
+   timeseriesCounts %>%
+       subset(strain == "CMY1") %>% 
+       lm(growth~time, data=.) %>%
+       summary %>% 
+       plyr::summarize(
+           hours = round(60*(1/coefficients[2,1]),1),
+           sderr = round(coefficients[2,2],3))
+ #+END_SRC
+
+ #+RESULTS:
+ | hours | sderr |
+ |-------+-------|
+ |  73.9 | 0.029 |
+
+
+ #+BEGIN_QUOTE
+ We found no evidence that reproductive rates at earlier time points
+ were any lower than later time points (Fig. S1a). Indeed, our data
+ show that cells at time points immediately following the first stain
+ produce slightly more daughters than those at later time points
+ (linear model; p = 0.03).
+ #+END_QUOTE
+
+ #+BEGIN_SRC R :results output
+   source("load-libraries.R")
+   timeseriesCounts <- read.csv("dryad/2016-Maxwell-Magwene-two-color-trackscar-timeseries.csv")
+
+   meanByTime <- ddply(timeseriesCounts,
+                       .(strain, time),
+                       plyr::summarize,
+                       m = mean(growth, na.rm=T)) %>%
+       ddply(.(strain),
+             plyr::mutate,
+             change = c( m[1], m[2:length(m)]-m[1:(length(m)-1)]),
+             interval = c( time[1], time[2:length(m)]-time[1:(length(m)-1)]),
+             time) %>%
+       transform(rate = change/interval)
+
+   meanByTime %>% 
+       subset((interval <=6)) %>%
+       lm(rate~time, data = .) %>%
+       summary()
+ #+END_SRC
+
+ #+RESULTS:
+ #+begin_example
+
+ Call:
+ lm(formula = rate ~ time, data = .)
+
+ Residuals:
+      Min       1Q   Median       3Q      Max 
+ -0.68058 -0.15459  0.00655  0.12647  0.56621 
+
+ Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+ (Intercept)  0.99236    0.07831  12.673   <2e-16 ***
+ time        -0.04006    0.01791  -2.237   0.0292 *  
+ ---
+ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+ Residual standard error: 0.2697 on 58 degrees of freedom
+ Multiple R-squared:  0.07941,	Adjusted R-squared:  0.06354 
+ F-statistic: 5.003 on 1 and 58 DF,  p-value: 0.02916
+
+ #+end_example
+
+** TrackScar provides a sensitive measure of differences in fecundity
+
+ #+BEGIN_QUOTE
+ This difference is significant (Paired t-test; n=3; p = 0.030). Consistent with this expectation, daughter cells of haploid strain
+ S288C produced an average of 4.9 daughters in a six-hour period,
+ whereas mother cells produced an average of 5.4 daughters (Fig. S1b).
+ #+END_QUOTE
+
+ #+BEGIN_SRC R :results output
+   source("analyze-two-color-trackscar.R")
+
+   haploidCounts <- read.csv("dryad/2016-Maxwell-Magwene-two-color-trackscar-haploid-S288C.csv")
+
+   fig1Means <- haploidCounts %>% 
+       subset((first %in% c(1,2)))%>% # restrict to 1 & 2 bud old cells
+           subset(!is.na(growth)) %>% 
+           transform(
+               group=factor(first,
+                   labels = c(1,2))
+               ) %>%
+         ddply(
+           c("folder", "group"),
+           plyr::summarize,
+           mean=mean(growth)) %>%
+         dcast(folder~group, value.var = "mean")
+
+
+   cat("*** Daughter mean:\n")
+   mean(fig1Means[["1"]])
+
+   cat("*** One bud mean:\n")
+   mean(fig1Means[["2"]])
+
+   cat("*** T-test\n")
+   with( fig1Means,
+	t.test( `1`, `2`,paired=TRUE))
+ #+END_SRC
+
+ #+RESULTS:
+ #+begin_example
+*** Daughter mean:
+[1] 4.912125
+*** One bud mean:
+[1] 5.420181
+*** T-test
+
+	Paired t-test
+
+data:  1 and 2
+t = -5.5597, df = 2, p-value = 0.03086
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -0.9012408 -0.1148706
+sample estimates:
+mean of the differences 
+             -0.5080557 
+
+#+end_example
+** Population Growth Rate and Mean Fecundity Are Well Correlated
+
+ #+BEGIN_QUOTE
+ The average fecundity of cells measured using TrackScar and the
+ maximum population growth rate measured by optical density at 35.5C
+ are well-correlated (r^2=0.58; Fig. S2).
+ #+END_QUOTE
+
+ #+BEGIN_SRC R :results output
+ source("analyze-two-color-trackscar.R")
+ with(subset(candidateGrowth, !is.na(mean_37C)),
+      cor(mean_37C, maxGrowth35halfC))^2
+ #+END_SRC
+
+ #+RESULTS:
+ : [1] 0.5762419
+
+** Heat stress can alter the distribution of ages in a population
+
+#+BEGIN_QUOTE
+ Furthermore, neither YJM693 nor S288C showed significantly different
+ age distributions at 30°C and 35.5°C (Kolmogorov-Smirnov test,
+ p>0.3). However, YJM996 had a significantly different distribution of
+ ages during growth at 35.5°C (Kolmogorov-Smirnov test, p=1.50×〖10〗
+ ^(-9)). . Furthermore, neither YJM693 nor S288C showed significantly
+ different age distributions at 30°C and 35.5°C (Kolmogorov-Smirnov
+ test, p>0.3). However, YJM996 had a significantly different
+ distribution of ages during growth at 35.5°C (Kolmogorov-Smirnov test,
+ p=1.74×〖10〗^(-7)).
+#+END_QUOTE
+
+#+BEGIN_SRC R :results output
+  source("analyze-two-color-trackscar.R")
+
+  subset( heatStressCandidates, 
+         strain %in% c(1587, 1513, 1523)) %>% 
+      dlply(.(strain), with, 
+            ks.test(first[temp == "30C"], first[temp == "37C"]))
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+$`1513`
+
+	Two-sample Kolmogorov-Smirnov test
+
+data:  first[temp == "30C"] and first[temp == "37C"]
+D = 0.04288, p-value = 0.3212
+alternative hypothesis: two-sided
+
+
+$`1523`
+
+	Two-sample Kolmogorov-Smirnov test
+
+data:  first[temp == "30C"] and first[temp == "37C"]
+D = 0.16369, p-value = 1.737e-07
+alternative hypothesis: two-sided
+
+
+$`1587`
+
+	Two-sample Kolmogorov-Smirnov test
+
+data:  first[temp == "30C"] and first[temp == "37C"]
+D = 0.042596, p-value = 0.6035
+alternative hypothesis: two-sided
+
+
+attr(,"split_type")
+[1] "data.frame"
+attr(,"split_labels")
+  strain
+1   1513
+2   1523
+3   1587
+#+end_example
+
