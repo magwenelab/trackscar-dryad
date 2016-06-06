@@ -105,7 +105,7 @@ model, p=0.048 and p=0.00076, respectively).
 #+END_QUOTE
 
 #+BEGIN_SRC R :colnames yes :session linear-model-fecundity
-  source("fit-linear-models.R")
+  source("analyze-linear-models.R")
 
   ## This just prints the p-value associated with the t-test of the
   ## significance of the slope
@@ -131,7 +131,7 @@ at any temperature (Fig. S5).
 #+END_QUOTE
 
 #+BEGIN_SRC R :colnames yes
-source("fit-linear-models.R")
+source("analyze-linear-models.R")
 
 ## This just prints the p-value associated with the t-test of the
 ## significance of the slope
@@ -167,7 +167,7 @@ mean)(Fig. 5a).
 This is the estimate of the relationship between the age and fecundity
 
 #+BEGIN_SRC R :colnames yes
-  source("fit-linear-models.R")
+  source("analyze-linear-models.R")
   lmSummaries %>% 
       subset(var == "first") %>% 
       dcast( strain ~ temp, value.var = "Estimate")  %>%
@@ -185,7 +185,7 @@ This is the estimate of the relationship between the age and fecundity
 |   1587 | -0.085 | -0.021 |
 
 #+begin_src R :results value :colnames yes
-  source("fit-linear-models.R")
+  source("analyze-linear-models.R")
   lmSummaries %>% 
       subset(var == "first") %>% 
       dcast( strain ~ temp, value.var = "Std..Error")  %>%
