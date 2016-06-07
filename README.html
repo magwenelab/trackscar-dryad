@@ -1,0 +1,1441 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2016-06-07 Tue 08:59 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>Data and Analysis for The Quick and the Dead</title>
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Colin S Maxwell and Paul M Magwene" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Data and Analysis for The Quick and the Dead</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline1">1. Introduction</a></li>
+<li><a href="#orgheadline2">2. Requirements</a></li>
+<li><a href="#orgheadline12">3. Files in this submission</a>
+<ul>
+<li><a href="#orgheadline3">3.1. 2016-Maxwell-Magwene-100genomes-temperature-growth.csv</a></li>
+<li><a href="#orgheadline4">3.2. 2016-Maxwell-Magwene-100genomes-temperatures-raw.csv</a></li>
+<li><a href="#orgheadline5">3.3. 2016-Maxwell-Magwene-mito-morphology-scoring.csv</a></li>
+<li><a href="#orgheadline6">3.4. 2016-Maxwell-Magwene-mito-trackscar.csv</a></li>
+<li><a href="#orgheadline7">3.5. 2016-Maxwell-Magwene-three-color-trackscar.csv</a></li>
+<li><a href="#orgheadline8">3.6. 2016-Maxwell-Magwene-two-color-trackscar-timeseries.csv</a></li>
+<li><a href="#orgheadline9">3.7. 2016-Maxwell-Magwene-two-color-trackscar.csv</a></li>
+<li><a href="#orgheadline10">3.8. 2016-Maxwell-Magwene-heat-stress-candidates.csv</a></li>
+<li><a href="#orgheadline11">3.9. 2016-Maxwell-Magwene-PMY-to-YJM.csv</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline13">4. Scripts used to generate the data files</a></li>
+<li><a href="#orgheadline14">5. Miscellaneous code</a></li>
+<li><a href="#orgheadline15">6. Scripts used to create shared data sets</a></li>
+<li><a href="#orgheadline16">7. Scripts used to generate figures</a></li>
+<li><a href="#orgheadline23">8. Statistics for Results</a>
+<ul>
+<li><a href="#orgheadline17">8.1. Increased mortality explains slow population growth for some heat sensitive strains</a></li>
+<li><a href="#orgheadline20">8.2. Fecundity can be positively or negatively associated with age during stress</a>
+<ul>
+<li><a href="#orgheadline18">8.2.1. Linear model fecundity p-values</a></li>
+<li><a href="#orgheadline19">8.2.2. Linear model fecundity slopes</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline22">8.3. Heat stress can cause premature senescence or early life mortality</a>
+<ul>
+<li><a href="#orgheadline21">8.3.1. Probability of death with age in YJM693</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgheadline28">9. Statistics for Supplementary results</a>
+<ul>
+<li><a href="#orgheadline24">9.1. Trackscar minimally affects cellular physiology</a></li>
+<li><a href="#orgheadline25">9.2. TrackScar provides a sensitive measure of differences in fecundity</a></li>
+<li><a href="#orgheadline26">9.3. Population Growth Rate and Mean Fecundity Are Well Correlated</a></li>
+<li><a href="#orgheadline27">9.4. Heat stress can alter the distribution of ages in a population</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline29">10. Session Info</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline1" class="outline-2">
+<h2 id="orgheadline1"><span class="section-number-2">1</span> Introduction</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This document describes the data submitted to the Dryad repository for
+the paper "The Quick and the Dead: Microbial Demography at the Yeast
+Thermal Limit" and provides links to the code (or the code itself)
+used to generate figures and the statistical analysis in the
+paper.This document is written in <a href="http:orgmode.org">org-mode</a> format, and is best viewed
+using emacs&#x2013;an open-source text editor. If this document is viewed on
+github, links don't necessarily point to the correct sections, and the
+results of source blocks (see below) are not displayed.
+</p>
+
+<p>
+The scripts used to produce the figures are stand-alone files linked
+to in the section <a href="#orgtarget1">Scripts used to generate figures</a> 
+</p>
+
+<p>
+Statistics referenced in the text are listed in the sections
+<a href="#orgtarget2">Statistics for Results</a> and <a href="#orgtarget3">Statistics for Supplementary Results</a>. The
+code used to generate the statistics is shown in <a href="http://orgmode.org/worg/org-contrib/babel/">org-babel</a> format, and
+can be run in situ in emacs. The results of each code block is shown
+below it, giving the statistic of interest.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-2">
+<h2 id="orgheadline2"><span class="section-number-2">2</span> Requirements</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+The scripts and data files should all be in the same folder. The
+analysis is written in the programming language R. See the section
+<a href="#orgtarget4">Session Info</a> for the version of R and the packages used to run these
+analyses.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline12" class="outline-2">
+<h2 id="orgheadline12"><span class="section-number-2">3</span> Files in this submission</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+This section contains a list of the data files included in this
+submission and gives:
+</p>
+
+<ol class="org-ol">
+<li>A brief description of how the data were generated</li>
+<li>The name of the script (if any) that produced the data</li>
+<li>A description of the column names in the data</li>
+</ol>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-3">
+<h3 id="orgheadline3"><span class="section-number-3">3.1</span> 2016-Maxwell-Magwene-100genomes-temperature-growth.csv</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+This is a summary file that gives estimates of the maximum population
+growth rate of a strain for several replicates and several
+temperatures. This file was generated by <a href="process-growth-curves.R">process-growth-curves.R</a>,
+which processes the raw data that is summarized in
+<a href="2016-Maxwell-Magwene-100genomes-temperatures-raw.csv">2016-Maxwell-Magwene-100genomes-temperatures-raw.csv</a>.
+</p>
+
+<hr  />
+
+<dl class="org-dl">
+<dt>fn</dt><dd>This gives the path to the raw data file used to generate the
+estimate</dd>
+<dt>temp</dt><dd>The temperature that the growth curve was collected at</dd>
+<dt>rep</dt><dd>The replicate number of the temperature</dd>
+<dt>row</dt><dd>The row that the well was in</dd>
+<dt>col</dt><dd>The column that the well was in</dd>
+<dt>Strain</dt><dd>The YJM number of the strain. YJM stands for 'Yeast John
+McCusker'. These are the original stocks for the 100 genomes
+collection used throughout these experiments that the PMY numbers
+are derived from</dd>
+<dt>PMY</dt><dd>The PMY number of the strain. PMY stands for 'Paul Magwene
+Yeast'. These are the actual stocks used during these experiments.</dd>
+<dt>maxGrowth</dt><dd>The estimate of maximum population growth for that
+strain and temperature, given in OD/sec</dd>
+<dt>pointOfMaxGrowthRate</dt><dd>The time point at which the maximum OD was
+reached</dd>
+<dt>maxOD</dt><dd>The maximum OD that was reached during the experiment</dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-orgheadline4" class="outline-3">
+<h3 id="orgheadline4"><span class="section-number-3">3.2</span> 2016-Maxwell-Magwene-100genomes-temperatures-raw.csv</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+This file contains the raw OD measurements from the Tecan Sunrise
+plate reader. The Tecan exports data in a form that is difficult to
+analyze, so rather than including the raw .asc files, the data was
+read in and aggregated by the script <a href="process-growth-curves.R">process-growth-curves.R</a>. To
+get the actual raw data in the script, please email the corresponding
+author of the paper.
+</p>
+
+<hr  />
+
+<dl class="org-dl">
+<dt>YJM</dt><dd>The YJM number of the strain. YJM stands for 'Yeast John
+McCusker'. These are the original stocks for the 100 genomes
+collection used throughout these experiments that the PMY numbers
+are derived from</dd>
+<dt>PMY</dt><dd>The PMY number of the strain. PMY stands for 'Paul Magwene
+Yeast'. These are the actual stocks used during these experiments.</dd>
+<dt>filename</dt><dd>The path to the original raw data file</dd>
+<dt>platemap</dt><dd>The path to the original plate map file.</dd>
+<dt>replicate</dt><dd>The replicate number of the temperature</dd>
+<dt>temperature</dt><dd>The temperature the growth curve was collected at</dd>
+<dt>row</dt><dd>The row in the plate</dd>
+<dt>col</dt><dd>The column in the plate</dd>
+<dt>seconds</dt><dd>The number of seconds elapsed since the start of the experiment</dd>
+<dt>OD</dt><dd>The optical density in the well</dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-3">
+<h3 id="orgheadline5"><span class="section-number-3">3.3</span> 2016-Maxwell-Magwene-mito-morphology-scoring.csv</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+These data were collected by manually scoring the mitochondrial
+morphology of strains containing a mitochondrially localized GFP at
+both 30C and 35.5C in 'real time' (no images collected) in an Axio Imager.
+</p>
+
+<p>
+See volume 5 pgs 12 and 14 of Colin Maxwell's lab notebook for the raw
+data.
+</p>
+
+<hr  />
+
+<dl class="org-dl">
+<dt>strain</dt><dd>The CMY number of the strain. CMY stands for Colin Maxwell
+Yeast. see Table S1 for a mapping to the PMY number and genotype
+of the strain.</dd>
+<dt>temp</dt><dd>The temperature that the data were collected at</dd>
+<dt>rep</dt><dd>The replicate number of the data</dd>
+<dt>A<sub>threads</sub></dt><dd>"A" is the original scoring code. "threads" is the
+morphology category.</dd>
+<dt>C<sub>clumps</sub></dt><dd>"C" is the original scoring code. "clumps" is the
+morphology category; only clumpy mitochondria present.</dd>
+<dt>B<sub>clumps</sub>-threads</dt><dd>"B" is the original scoring 
+code. "clumps-threads" is the morphology category; both clumps
+and threads present.</dd>
+<dt>D<sub>no</sub>-mitos</dt><dd>"D" is the original scoring code. "no-mitos" is the
+morphology category; no mitochondria were observed.</dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6"><span class="section-number-3">3.4</span> 2016-Maxwell-Magwene-mito-trackscar.csv</h3>
+<div class="outline-text-3" id="text-3-4">
+<p>
+This contains data about the morphology and fecundity of several
+strains of yeast at both 30C and 35.5C. These data were collected
+using the DeltaVision and then scoring the morphology and counting the
+budscars based on the resulting images. The file was generated from
+the original count data files from the script
+<a href="process-mito-trackscar-data.R">process-mito-trackscar-data.R</a>. To get the actual raw data in the
+script, please email the corresponding author of the paper.
+</p>
+
+<hr  />
+
+<dl class="org-dl">
+<dt>folder</dt><dd>The name of the folder containing the original data</dd>
+<dt>experiment<sub>ID</sub></dt><dd>The experiment ID of the data</dd>
+<dt>counts<sub>file</sub></dt><dd>The name of the file containing the original data</dd>
+<dt>sampling</dt><dd>The method of sampling used &#x2013; either "random" or
+"for<sub>age</sub>". "Random" means the cells were imaged by moving in a
+transect along the slide and imaging each cell that was positive
+for the first stain. "for<sub>age</sub>" means that older cells were sought
+out specifically.</dd>
+<dt>temp</dt><dd>The temperature that the data was collected at.</dd>
+<dt>media</dt><dd>The media that the cells were grown in</dd>
+<dt>who<sub>counted</sub></dt><dd>Who counted the buds (CSM = Colin S. Maxwell)</dd>
+<dt>number<sub>of</sub><sub>colors</sub></dt><dd>Either "2" or "3" color TrackScar</dd>
+<dt>time</dt><dd>Hours between stains</dd>
+<dt>strain</dt><dd>CMY (Colin Maxwell Yeast) number and the temperature. See
+Table S1 for a mapping from CMY numbers to other data.</dd>
+<dt>growth</dt><dd>Number of new scars produced during the experiment (should
+be called 'fecundity', but is called 'growth' for historical
+reasons). growth = second - first</dd>
+<dt>first</dt><dd>Number of scars stained with the first stain</dd>
+<dt>second</dt><dd>The number of scars stained with the second stain.</dd>
+<dt>mitos</dt><dd>The mito morphology class of the cell: 't' = threads; 'c' =
+clumps; 'tc' = thread &amp; clumps; 'n' = no mitochondria.</dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-orgheadline7" class="outline-3">
+<h3 id="orgheadline7"><span class="section-number-3">3.5</span> 2016-Maxwell-Magwene-three-color-trackscar.csv</h3>
+<div class="outline-text-3" id="text-3-5">
+<p>
+This contains the data for the three color trackscar experiments that
+were analyzed during the experiment. The original design of these
+experiments let recover after heat stress at either 30C or 37C for
+either 3 or 6 hrs. The 3hr recovery data was not used in the paper and
+is not included in this file. The 37C recovery data is only used for
+its first interval as a two color TrackScar experiment. This file was
+generated from the original count data files by the script
+<a href="process-three-color-trackscar.R">process-three-color-trackscar.R</a>. To get the actual raw data in
+the script, please email the corresponding author of the paper.
+</p>
+
+<hr  />
+
+<dl class="org-dl">
+<dt>folder</dt><dd>The name of the folder containing the original data</dd>
+<dt>counts<sub>file</sub></dt><dd>The name of the file containing the original data</dd>
+<dt>experiment</dt><dd>The experiment ID of the data</dd>
+<dt>sampling</dt><dd>The method of sampling used &#x2013; either "random" or
+"for<sub>age</sub>". "Random" means the cells were imaged by moving in a
+transect along the slide and imaging each cell that was positive
+for the first stain. "for<sub>age</sub>" means that older cells were sought
+out specifically.</dd>
+<dt>who<sub>counted</sub></dt><dd>Who counted the buds (CSM = Colin S. Maxwell)</dd>
+<dt>temp</dt><dd>The temperature that the data was collected at.</dd>
+<dt>strain</dt><dd>The PMY (Paul Magwene Yeast) number of the strain. For a
+mapping to YJM numbers reported in the text, see the file
+<a href="PMY_to_YJM.csv">PMY_to_YJM.csv</a>.</dd>
+<dt>growth</dt><dd>Number of new scars produced during the experiment (should
+be called 'fecundity', but is called 'growth' for historical
+reasons). growth = last - first</dd>
+<dt>growth1</dt><dd>Number of buds between the first and second stain</dd>
+<dt>growth2</dt><dd>Number of buds between the second and third stain</dd>
+<dt>first</dt><dd>Number of scars stained with the first stain</dd>
+<dt>last</dt><dd>Number of scars stained with the third stain</dd>
+<dt>recoveryTemp</dt><dd>The temperature the cells were incubated in during
+the recovery period</dd>
+<dt>recoveryTime</dt><dd>The length of time the cells were incubated during
+the recovery period.</dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-orgheadline8" class="outline-3">
+<h3 id="orgheadline8"><span class="section-number-3">3.6</span> 2016-Maxwell-Magwene-two-color-trackscar-timeseries.csv</h3>
+<div class="outline-text-3" id="text-3-6">
+<p>
+This data is two color TrackScar experiments where the time between
+the first and the second stain varied between one and six hours. The
+file was created by the script <a href="process-two-color-trackscar.R">process-two-color-trackscar.R</a>. To
+get the actual raw data in the script, please email the corresponding
+author of the paper.
+</p>
+
+<hr  />
+
+<dl class="org-dl">
+<dt>folder</dt><dd>The name of the folder containing the original data</dd>
+<dt>experiment<sub>ID</sub></dt><dd>The experiment ID of the data</dd>
+<dt>counts<sub>file</sub></dt><dd>The name of the file containing the original data</dd>
+<dt>sampling</dt><dd>The method of sampling used &#x2013; either "random" or
+"for<sub>age</sub>". "Random" means the cells were imaged by moving in a
+transect along the slide and imaging each cell that was positive
+for the first stain. "for<sub>age</sub>" means that older cells were sought
+out specifically.</dd>
+<dt>temp</dt><dd>The temperature that the data was collected at.</dd>
+<dt>media</dt><dd>The media that the cells were grown in</dd>
+<dt>who<sub>counted</sub></dt><dd>Who counted the buds (CSM = Colin S. Maxwell)</dd>
+<dt>number<sub>of</sub><sub>colors</sub></dt><dd>Either "2" or "3" color TrackScar</dd>
+<dt>time</dt><dd>How many hours between the first and second strains</dd>
+<dt>strain</dt><dd>The YJM number of the strain. YJM stands for 'Yeast John
+McCusker'. These are the original stocks for the 100 genomes
+collection used throughout these experiments that the PMY numbers
+are derived from</dd>
+<dt>replicate</dt><dd>Replicate number</dd>
+<dt>growth</dt><dd>Number of new scars produced during the experiment (should
+be called 'fecundity', but is called 'growth' for historical
+reasons). growth = second - first</dd>
+<dt>first</dt><dd>Number of scars stained with the first stain</dd>
+<dt>last</dt><dd>The number of scars stained with the second stain.</dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-orgheadline9" class="outline-3">
+<h3 id="orgheadline9"><span class="section-number-3">3.7</span> 2016-Maxwell-Magwene-two-color-trackscar.csv</h3>
+<div class="outline-text-3" id="text-3-7">
+<p>
+These data are two color TrackScar experiments where the time between
+the first and the second stain is six hours. The file was created by
+the script <a href="process-two-color-trackscar.R">process-two-color-trackscar.R</a>. To get the actual raw
+data in the script, please email the corresponding author of the
+paper.
+</p>
+
+<hr  />
+
+<dl class="org-dl">
+<dt>folder</dt><dd>The name of the folder containing the original data</dd>
+<dt>experiment<sub>ID</sub></dt><dd>The experiment ID of the data</dd>
+<dt>counts<sub>file</sub></dt><dd>The name of the file containing the original data</dd>
+<dt>sampling</dt><dd>The method of sampling used &#x2013; either "random" or
+"for<sub>age</sub>". "Random" means the cells were imaged by moving in a
+transect along the slide and imaging each cell that was positive
+for the first stain. "for<sub>age</sub>" means that older cells were sought
+out specifically.</dd>
+<dt>temp</dt><dd>The temperature that the data was collected at.</dd>
+<dt>media</dt><dd>The media that the cells were grown in</dd>
+<dt>who<sub>counted</sub></dt><dd>Who counted the buds (CSM = Colin S. Maxwell)</dd>
+<dt>number<sub>of</sub><sub>colors</sub></dt><dd>Either "2" or "3" color TrackScar</dd>
+<dt>time</dt><dd>How many hours between the first and second strains</dd>
+<dt>strain</dt><dd>The PMY (Paul Magwene Yeast) number of the strain. For a
+mapping to YJM numbers reported in the text, see the file
+<a href="PMY_to_YJM.csv">PMY_to_YJM.csv</a>.</dd>
+<dt>replicate</dt><dd>Replicate number</dd>
+<dt>growth</dt><dd>Number of new scars produced during the experiment (should
+be called 'fecundity', but is called 'growth' for historical
+reasons). growth = second - first</dd>
+<dt>first</dt><dd>Number of scars stained with the first stain</dd>
+<dt>last</dt><dd>The number of scars stained with the second stain.</dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-orgheadline10" class="outline-3">
+<h3 id="orgheadline10"><span class="section-number-3">3.8</span> 2016-Maxwell-Magwene-heat-stress-candidates.csv</h3>
+<div class="outline-text-3" id="text-3-8">
+<p>
+This is a file that gives a list of the strains sensitive to growth at
+35.5C that were examined using TrackScar. The file was originally
+produced by the script <a href="analyze-growth-curves.R">analyze-growth-curves.R</a>, but the name was
+changed and was annotated when it became apparent that some strains
+couldn't be analyzed using TrackScar. 
+</p>
+
+<hr  />
+
+<dl class="org-dl">
+<dt>PMY</dt><dd>The PMY (Paul Magwene Yeast) number of the strain. For a
+mapping to YJM numbers reported in the text, see the file
+<a href="PMY_to_YJM.csv">PMY_to_YJM.csv</a>.</dd>
+<dt>ratioMaxGrowth</dt><dd>Growth at 35.5C/30C</dd>
+<dt>maxGrowth30C</dt><dd>Growth rate at 30C</dd>
+<dt>maxGrowth35halfC</dt><dd>Growth rate at 35.5C</dd>
+<dt>maxGrowth37C</dt><dd>Growth rate at 37C</dd>
+<dt>exclusion<sub>reason</sub></dt><dd>If it was excluded from subsequent analysis, why?</dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-orgheadline11" class="outline-3">
+<h3 id="orgheadline11"><span class="section-number-3">3.9</span> 2016-Maxwell-Magwene-PMY-to-YJM.csv</h3>
+<div class="outline-text-3" id="text-3-9">
+<p>
+This is a mapping between the 100 genomes PMY (Paul Magwene Yeast)
+numbers and YJM (Yeast John McCusker) numbers.
+</p>
+
+<hr  />
+
+<dl class="org-dl">
+<dt>PMY</dt><dd>The PMY number</dd>
+<dt>Strain</dt><dd>The YJM number</dd>
+</dl>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline13" class="outline-2">
+<h2 id="orgheadline13"><span class="section-number-2">4</span> Scripts used to generate the data files</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+All scripts that begin with the name 'process' were run to generate
+data for the Dryad submission using files that will not be submitted
+to Dryad. The scripts filter data to contain only the data needed in
+the paper and annotate it with the appropriate metadata. Since these
+scripts rely on unsubmitted data, they cannot be run but are submitted
+to allow the data processing steps to be examined. See above for which
+scripts generated which files.
+</p>
+
+<hr  />
+
+<ul class="org-ul">
+<li><a href="process-growth-curves.R">process-growth-curves.R</a></li>
+<li><a href="process-mito-trackscar-data.R">process-mito-trackscar-data.R</a></li>
+<li><a href="process-two-color-trackscar.R">process-two-color-trackscar.R</a></li>
+<li><a href="process-three-color-trackscar.R">process-three-color-trackscar.R</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline14" class="outline-2">
+<h2 id="orgheadline14"><span class="section-number-2">5</span> Miscellaneous code</h2>
+<div class="outline-text-2" id="text-5">
+<dl class="org-dl">
+<dt><a href="budscar-count-utilities.R">budscar-count-utilities.R</a></dt><dd>Miscellaneous files for handling
+trackscar data</dd>
+<dt><a href="fig-theme.R">fig-theme.R</a></dt><dd>A ggplot2 theme used in the figures</dd>
+<dt><a href="load-libraries.R">load-libraries.R</a></dt><dd>Loads all the libraries used in the analysis</dd>
+<dt><a href="tecan.R">tecan.R</a></dt><dd>Functions to deal with the awful ASCII export from a
+Tecan Sunrise.</dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-orgheadline15" class="outline-2">
+<h2 id="orgheadline15"><span class="section-number-2">6</span> Scripts used to create shared data sets</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+All scripts that begin with the name 'analyze' are used to process
+data in a way that gets reused across multiple figures or code
+blocks. They will all run as self-contained scripts, but most don't
+generate  output, they just make certain datasets available.
+</p>
+
+<hr  />
+
+<ul class="org-ul">
+<li><a href="analyze-growth-curves.R">analyze-growth-curves.R</a></li>
+<li><a href="analyze-linear-models.R">analyze-linear-models.R</a></li>
+<li><a href="analyze-S288C-trackscar.R">analyze-S288C-trackscar.R</a></li>
+<li><a href="analyze-three-color-trackscar.R">analyze-three-color-trackscar.R</a></li>
+<li><a href="analyze-two-color-trackscar.R">analyze-two-color-trackscar.R</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline16" class="outline-2">
+<h2 id="orgheadline16"><span class="section-number-2">7</span> <a id="orgtarget1"></a> Scripts used to generate figures</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+Each figure panel that contains data was generated using the code
+contained in the scripts below.
+</p>
+
+<hr  />
+
+
+<dl class="org-dl">
+<dt><a href="generate-figures.R">generate-figures.R</a></dt><dd>this is just a convenience script that
+runs all the scripts below</dd>
+<dt><a href="figure-2.R">figure-2.R</a></dt><dd></dd>
+
+<dt><a href="figure-3.R">figure-3.R</a></dt><dd></dd>
+
+<dt><a href="figure-4.R">figure-4.R</a></dt><dd></dd>
+
+<dt><a href="figure-5.R">figure-5.R</a></dt><dd></dd>
+
+<dt><a href="figure-6.R">figure-6.R</a></dt><dd></dd>
+
+<dt><a href="figure-S1.R">figure-S1.R</a></dt><dd></dd>
+
+<dt><a href="figure-S2.R">figure-S2.R</a></dt><dd></dd>
+
+<dt><a href="figure-S3.R">figure-S3.R</a></dt><dd></dd>
+
+<dt><a href="figure-S4.R">figure-S4.R</a></dt><dd></dd>
+
+<dt><a href="figure-S5.R">figure-S5.R</a></dt><dd></dd>
+
+<dt><a href="figure-S6.R">figure-S6.R</a></dt><dd></dd>
+
+<dt><a href="figure-S7.R">figure-S7.R</a></dt><dd></dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-orgheadline23" class="outline-2">
+<h2 id="orgheadline23"><span class="section-number-2">8</span> <a id="orgtarget2"></a> Statistics for Results</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+The following code blocks justify the statistics cited in the main text.
+</p>
+</div>
+
+<div id="outline-container-orgheadline17" class="outline-3">
+<h3 id="orgheadline17"><span class="section-number-3">8.1</span> Increased mortality explains slow population growth for some heat sensitive strains</h3>
+<div class="outline-text-3" id="text-8-1">
+<blockquote>
+<p>
+Remarkably, and in contrast with the other two strains we examined,
+the distribution of fecundity among YJM693 cells that survived heat
+stress was identical to that of unstressed cells (Kolmogorov-Smirnov
+test; p = 0.64).
+</p>
+</blockquote>
+
+
+<p>
+This code runs the KS test to compare the fecundity of live
+stressed cells to unstressed cells.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-R"><span style="color: #6a7550;">source</span>(<span style="color: #CC5542;">"analyze-two-color-trackscar.R"</span>)
+<span style="color: #6a7550;">source</span>(<span style="color: #CC5542;">"analyze-three-color-trackscar.R"</span>)
+
+<span style="color: #6abd50;">## </span><span style="color: #6aaf50;">This is what happens when you decide to not use a database</span>
+<span style="color: #6abd50;">## </span><span style="color: #6aaf50;">All this does is bring the sundry data frames together</span>
+<span style="color: #6abd50;">## </span><span style="color: #6aaf50;">so that they can be compared with one another.</span>
+
+strains = c(1513, 1523, 1587)
+
+listOfData = list(
+    <span style="color: #6abd50;">## </span><span style="color: #6aaf50;">These cells were grown for 6 hr at 37C, then were allowed</span>
+    <span style="color: #6abd50;">## </span><span style="color: #6aaf50;">to recovery at 30C.</span>
+    live37 = subset(
+            recoveryCounts,
+            (growth2 &gt; 0) &amp;
+            (strain %<span style="color: #7d7c61; font-weight: bold;">in</span>% strains) &amp;
+            (temp %<span style="color: #7d7c61; font-weight: bold;">in</span>% c(<span style="color: #CC5542;">"37C"</span>, <span style="color: #CC5542;">"41.5C"</span>)) &amp; <span style="color: #6abd50;"># </span><span style="color: #6aaf50;">S288C recovery is at 41.5</span>
+            (recoveryTemp == <span style="color: #CC5542;">"30C recovery"</span>) &amp;
+            (recoveryTime == <span style="color: #CC5542;">"6 hr recovery"</span>))[,c(<span style="color: #CC5542;">"growth1"</span>, <span style="color: #CC5542;">"first"</span>, <span style="color: #CC5542;">"experiment"</span>, <span style="color: #CC5542;">"strain"</span>)],
+    dead37 = subset(
+            recoveryCounts,
+            (growth2 == 0) &amp;
+            (strain %<span style="color: #7d7c61; font-weight: bold;">in</span>% strains) &amp;
+            (temp %<span style="color: #7d7c61; font-weight: bold;">in</span>% c(<span style="color: #CC5542;">"37C"</span>, <span style="color: #CC5542;">"41.5C"</span>)) &amp;
+            (recoveryTemp == <span style="color: #CC5542;">"30C recovery"</span>) &amp;
+            (recoveryTime == <span style="color: #CC5542;">"6 hr recovery"</span>))[,c(<span style="color: #CC5542;">"growth1"</span>, <span style="color: #CC5542;">"first"</span>, <span style="color: #CC5542;">"experiment"</span>, <span style="color: #CC5542;">"strain"</span>)],
+    <span style="color: #6abd50;">## </span><span style="color: #6aaf50;">This is the 30C data to compare it to</span>
+    noheat = subset(
+        heatStressCandidates,
+        (strain %<span style="color: #7d7c61; font-weight: bold;">in</span>% strains) &amp;
+        (temp %<span style="color: #7d7c61; font-weight: bold;">in</span>% c(<span style="color: #CC5542;">"30C"</span>))&amp;
+        (growth &lt; 10))[,c(<span style="color: #CC5542;">"growth"</span>, <span style="color: #CC5542;">"first"</span>, <span style="color: #CC5542;">"last"</span>, <span style="color: #CC5542;">"folder"</span>, <span style="color: #CC5542;">"strain"</span>)]
+    )
+
+liveDeadUnstressed = ldply(
+    listOfData,
+    <span style="color: #7d7c61; font-weight: bold;">function</span>(x){
+        <span style="color: #7d7c61; font-weight: bold;">if</span>( <span style="color: #CC5542;">"growth1"</span> %<span style="color: #7d7c61; font-weight: bold;">in</span>% colnames(x)){ <span style="color: #6abd50;"># </span><span style="color: #6aaf50;">3 color data</span>
+            with(x,
+                 data.frame(strain=strain,
+                            growth=growth1,
+                            first = first,
+                            second=first+growth1)
+                 )
+        }<span style="color: #7d7c61; font-weight: bold;">else</span>{ <span style="color: #6abd50;"># </span><span style="color: #6aaf50;">2 color data</span>
+            with(x, 
+                 data.frame(strain = as.numeric(strain),
+                            growth=growth,
+                            first = first,
+                            second = last))}},
+    .id = <span style="color: #CC5542;">"type"</span>) <span style="color: #bdbdb3; font-weight: bold;">%&gt;%</span>
+    subset(!is.na(growth))
+
+ddply(liveDeadUnstressed,
+      .(strain),
+      plyr::summarize, 
+      p = ks.test(growth[type == <span style="color: #CC5542;">"live37"</span>],
+                  growth[type == <span style="color: #CC5542;">"noheat"</span>])$p.value)
+
+<span style="color: #6abd50;">#</span><span style="color: #6aaf50;">count(liveDeadUnstressed, c("strain", "type"))</span>
+</pre>
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-right">strain</th>
+<th scope="col" class="org-right">p</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-right">1513</td>
+<td class="org-right">0.637424252607437</td>
+</tr>
+
+<tr>
+<td class="org-right">1523</td>
+<td class="org-right">3.33066907387547e-16</td>
+</tr>
+
+<tr>
+<td class="org-right">1587</td>
+<td class="org-right">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-orgheadline20" class="outline-3">
+<h3 id="orgheadline20"><span class="section-number-3">8.2</span> Fecundity can be positively or negatively associated with age during stress</h3>
+<div class="outline-text-3" id="text-8-2">
+</div><div id="outline-container-orgheadline18" class="outline-4">
+<h4 id="orgheadline18"><span class="section-number-4">8.2.1</span> Linear model fecundity p-values</h4>
+<div class="outline-text-4" id="text-8-2-1">
+<blockquote>
+<p>
+At 30°C, average fecundity of cohorts of YJM693 increased
+slightly with age, nor whereas the fecundity of cohorts of YJM996 was
+not significantly affected by age (Fig. 5a)(linear model, p = 0.016
+and p=0.68, respectively).
+</p>
+</blockquote>
+
+<blockquote>
+<p>
+In contrast, at 35.5°C, replicative age significantly affects the
+average fecundity of a cohort in the strains YJM693 and YJM996 (linear
+model, p=0.048 and p=0.00076, respectively).
+</p>
+</blockquote>
+
+<div class="org-src-container">
+
+<pre class="src src-R"><span style="color: #6a7550;">source</span>(<span style="color: #CC5542;">"analyze-linear-models.R"</span>)
+
+<span style="color: #6abd50;">## </span><span style="color: #6aaf50;">This just prints the p-value associated with the t-test of the</span>
+<span style="color: #6abd50;">## </span><span style="color: #6aaf50;">significance of the slope</span>
+ lmSummaries <span style="color: #bdbdb3; font-weight: bold;">%&gt;%</span> 
+    subset(var == <span style="color: #CC5542;">"first"</span>) <span style="color: #bdbdb3; font-weight: bold;">%&gt;%</span> 
+    dcast( strain ~ temp, value.var = <span style="color: #CC5542;">"Pr...t.."</span>) <span style="color: #bdbdb3; font-weight: bold;">%&gt;%</span>
+    plyr::summarize(
+    strain,
+    <span style="color: #CC5542;">`30C`</span> = round(<span style="color: #CC5542;">`30C`</span>, 5),
+              <span style="color: #CC5542;">`37C`</span> = round(<span style="color: #CC5542;">`37C`</span>, 5))
+</pre>
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-right">strain</th>
+<th scope="col" class="org-right">30C</th>
+<th scope="col" class="org-right">37C</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-right">1513</td>
+<td class="org-right">0.01564</td>
+<td class="org-right">0.04885</td>
+</tr>
+
+<tr>
+<td class="org-right">1523</td>
+<td class="org-right">0.68425</td>
+<td class="org-right">0.00076</td>
+</tr>
+
+<tr>
+<td class="org-right">1587</td>
+<td class="org-right">0.07558</td>
+<td class="org-right">0.57134</td>
+</tr>
+</tbody>
+</table>
+
+<blockquote>
+<p>
+The average fecundity of a cohort of S288C was not affected by its age
+at any temperature (Fig. S5).
+</p>
+</blockquote>
+
+<div class="org-src-container">
+
+<pre class="src src-R"><span style="color: #6a7550;">source</span>(<span style="color: #CC5542;">"analyze-linear-models.R"</span>)
+
+<span style="color: #6abd50;">## </span><span style="color: #6aaf50;">This just prints the p-value associated with the t-test of the</span>
+<span style="color: #6abd50;">## </span><span style="color: #6aaf50;">significance of the slope</span>
+lmSummaries2 <span style="color: #6a7550;">&lt;-</span> ldply(lm2,
+                      <span style="color: #7d7c61; font-weight: bold;">function</span>(x){
+                          out <span style="color: #6a7550;">&lt;-</span> summary(x)$coefficients
+                          data.frame( var = c(<span style="color: #CC5542;">"intercept"</span>, <span style="color: #CC5542;">"first"</span>), out)
+                      }) <span style="color: #bdbdb3; font-weight: bold;">%&gt;%</span>
+    subset(var == <span style="color: #CC5542;">"first"</span>) <span style="color: #bdbdb3; font-weight: bold;">%&gt;%</span> 
+    plyr::summarize(temp, <span style="color: #CC5542;">`p`</span> = round(<span style="color: #CC5542;">`Pr...t..`</span>, 5))
+</pre>
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-right">temp</th>
+<th scope="col" class="org-right">p</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-right">30</td>
+<td class="org-right">0.92532</td>
+</tr>
+
+<tr>
+<td class="org-right">37</td>
+<td class="org-right">0.9974</td>
+</tr>
+
+<tr>
+<td class="org-right">38.5</td>
+<td class="org-right">0.55688</td>
+</tr>
+
+<tr>
+<td class="org-right">40</td>
+<td class="org-right">0.59948</td>
+</tr>
+
+<tr>
+<td class="org-right">41.5</td>
+<td class="org-right">0.59471</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline19" class="outline-4">
+<h4 id="orgheadline19"><span class="section-number-4">8.2.2</span> Linear model fecundity slopes</h4>
+<div class="outline-text-4" id="text-8-2-2">
+<blockquote>
+<p>
+Interestingly, while YJM693 cells produce an average of 0.14 ± 0.13
+fewer daughters in six hours per cohort when heat stressed, YJM996
+cells produce an average of 0.37 ± 0.15 more daughters in six hours
+per cohort (intervals are 95% confidence intervals of the
+mean)(Fig. 5a).
+</p>
+</blockquote>
+
+
+<p>
+This is the estimate of the relationship between the age and fecundity
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-R"><span style="color: #6a7550;">source</span>(<span style="color: #CC5542;">"analyze-linear-models.R"</span>)
+lmSummaries <span style="color: #bdbdb3; font-weight: bold;">%&gt;%</span> 
+    subset(var == <span style="color: #CC5542;">"first"</span>) <span style="color: #bdbdb3; font-weight: bold;">%&gt;%</span> 
+    dcast( strain ~ temp, value.var = <span style="color: #CC5542;">"Estimate"</span>)  <span style="color: #bdbdb3; font-weight: bold;">%&gt;%</span>
+    plyr::summarize(
+       strain,
+       <span style="color: #CC5542;">`30C`</span> = round(<span style="color: #CC5542;">`30C`</span>, 3),
+       <span style="color: #CC5542;">`37C`</span> = round(<span style="color: #CC5542;">`37C`</span>, 3))
+</pre>
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-right">strain</th>
+<th scope="col" class="org-right">30C</th>
+<th scope="col" class="org-right">37C</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-right">1513</td>
+<td class="org-right">0.1</td>
+<td class="org-right">-0.139</td>
+</tr>
+
+<tr>
+<td class="org-right">1523</td>
+<td class="org-right">0.041</td>
+<td class="org-right">0.334</td>
+</tr>
+
+<tr>
+<td class="org-right">1587</td>
+<td class="org-right">-0.085</td>
+<td class="org-right">-0.021</td>
+</tr>
+</tbody>
+</table>
+
+<div class="org-src-container">
+
+<pre class="src src-R"><span style="color: #6a7550;">source</span>(<span style="color: #CC5542;">"analyze-linear-models.R"</span>)
+lmSummaries <span style="color: #bdbdb3; font-weight: bold;">%&gt;%</span> 
+    subset(var == <span style="color: #CC5542;">"first"</span>) <span style="color: #bdbdb3; font-weight: bold;">%&gt;%</span> 
+    dcast( strain ~ temp, value.var = <span style="color: #CC5542;">"Std..Error"</span>)  <span style="color: #bdbdb3; font-weight: bold;">%&gt;%</span>
+    plyr::summarize(
+       strain,
+       <span style="color: #CC5542;">`30C`</span> = round(<span style="color: #CC5542;">`30C`</span> * 1.98, 3),
+       <span style="color: #CC5542;">`37C`</span> = round(<span style="color: #CC5542;">`37C`</span> * 1.98, 3))
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline22" class="outline-3">
+<h3 id="orgheadline22"><span class="section-number-3">8.3</span> Heat stress can cause premature senescence or early life mortality</h3>
+<div class="outline-text-3" id="text-8-3">
+</div><div id="outline-container-orgheadline21" class="outline-4">
+<h4 id="orgheadline21"><span class="section-number-4">8.3.1</span> Probability of death with age in YJM693</h4>
+<div class="outline-text-4" id="text-8-3-1">
+<blockquote>
+<p>
+Using logistic regression, we estimate that there is a 20% (95%
+CI ± 6%) increase in the probability of death for each additional
+unit of replicative age in this strain during heat stress.
+</p>
+</blockquote>
+
+<div class="org-src-container">
+
+<pre class="src src-R"><span style="color: #6a7550;">source</span>(<span style="color: #CC5542;">"analyze-two-color-trackscar.R"</span>)
+
+mortality1513 <span style="color: #6a7550;">&lt;-</span> heatStressCandidatesWithAge <span style="color: #bdbdb3; font-weight: bold;">%&gt;%</span>
+    subset(strain %<span style="color: #7d7c61; font-weight: bold;">in</span>% c(1513)) <span style="color: #bdbdb3; font-weight: bold;">%&gt;%</span>
+    subset(temp == <span style="color: #CC5542;">"37C"</span>) <span style="color: #bdbdb3; font-weight: bold;">%&gt;%</span>
+    transform(dead = ifelse(growth &lt; 4, 1, 0)) <span style="color: #bdbdb3; font-weight: bold;">%&gt;%</span>
+    glm(dead~first, data = .,  family=<span style="color: #CC5542;">"binomial"</span>)
+
+cat(<span style="color: #CC5542;">"Summary of regression:\n\n"</span>)
+summary(mortality1513)
+cat(<span style="color: #CC5542;">"Confidence intervals:\n\n"</span>)
+confint(mortality1513)
+</pre>
+</div>
+
+<pre class="example">
+Summary of regression:
+
+
+Call:
+glm(formula = dead ~ first, family = "binomial", data = .)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-1.6346  -0.9263  -0.8586   1.3691   1.5340  
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept) -0.99191    0.08496 -11.675  &lt; 2e-16 ***
+first        0.18390    0.02572   7.149 8.72e-13 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 2452.1  on 1849  degrees of freedom
+Residual deviance: 2399.9  on 1848  degrees of freedom
+AIC: 2403.9
+
+Number of Fisher Scoring iterations: 4
+
+Confidence intervals:
+
+                 2.5 %     97.5 %
+(Intercept) -1.1595791 -0.8264455
+first        0.1337114  0.2346053
+</pre>
+
+<p>
+The estimate of the increase in mortality is 20%:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-R">exp(0.183)
+</pre>
+</div>
+
+<pre class="example">
+1.20081440808083
+</pre>
+
+<p>
+95% confidence interval width:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-R">exp(0.183) - exp(0.13)
+</pre>
+</div>
+
+<pre class="example">
+0.06198602475620
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline28" class="outline-2">
+<h2 id="orgheadline28"><span class="section-number-2">9</span> <a id="orgtarget3"></a> Statistics for Supplementary results</h2>
+<div class="outline-text-2" id="text-9">
+<p>
+The following code blocks justify the statistics cited in the supplement.
+</p>
+</div>
+
+<div id="outline-container-orgheadline24" class="outline-3">
+<h3 id="orgheadline24"><span class="section-number-3">9.1</span> Trackscar minimally affects cellular physiology</h3>
+<div class="outline-text-3" id="text-9-1">
+<blockquote>
+<p>
+Using TrackScar we estimated the average division time to be 73.9
+minutes for haploid cells of the genomic reference strain S288c grown
+in rich-media conditions.
+</p>
+</blockquote>
+
+<p>
+The approach here is to fit a linear regression to the number of buds
+added for this timeseries.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-R"><span style="color: #6a7550;">source</span>(<span style="color: #CC5542;">"load-libraries.R"</span>)
+timeseriesCounts <span style="color: #6a7550;">&lt;-</span> read.csv(<span style="color: #CC5542;">"2016-Maxwell-Magwene-two-color-trackscar-timeseries.csv"</span>)
+<span style="color: #6abd50;">## </span><span style="color: #6aaf50;">Note that CMY1 is the S288C genomic reference strain and is haploid</span>
+timeseriesCounts <span style="color: #bdbdb3; font-weight: bold;">%&gt;%</span>
+    subset(strain == <span style="color: #CC5542;">"CMY1"</span>) <span style="color: #bdbdb3; font-weight: bold;">%&gt;%</span> 
+    lm(growth~time, data=.) <span style="color: #bdbdb3; font-weight: bold;">%&gt;%</span>
+    summary <span style="color: #bdbdb3; font-weight: bold;">%&gt;%</span> 
+    plyr::summarize(
+        hours = round(60*(1/coefficients[2,1]),1),
+        sderr = round(coefficients[2,2],3))
+</pre>
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-right">hours</th>
+<th scope="col" class="org-right">sderr</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-right">73.9</td>
+<td class="org-right">0.029</td>
+</tr>
+</tbody>
+</table>
+
+
+<blockquote>
+<p>
+We found no evidence that reproductive rates at earlier time points
+were any lower than later time points (Fig. S1a). Indeed, our data
+show that cells at time points immediately following the first stain
+produce slightly more daughters than those at later time points
+(linear model; p = 0.03).
+</p>
+</blockquote>
+
+<div class="org-src-container">
+
+<pre class="src src-R"><span style="color: #6a7550;">source</span>(<span style="color: #CC5542;">"load-libraries.R"</span>)
+timeseriesCounts <span style="color: #6a7550;">&lt;-</span> read.csv(<span style="color: #CC5542;">"2016-Maxwell-Magwene-two-color-trackscar-timeseries.csv"</span>)
+
+meanByTime <span style="color: #6a7550;">&lt;-</span> ddply(timeseriesCounts,
+                    .(strain, time),
+                    plyr::summarize,
+                    m = mean(growth, na.rm=T)) <span style="color: #bdbdb3; font-weight: bold;">%&gt;%</span>
+    ddply(.(strain),
+          plyr::mutate,
+          change = c( m[1], m[2:length(m)]-m[1:(length(m)-1)]),
+          interval = c( time[1], time[2:length(m)]-time[1:(length(m)-1)]),
+          time) <span style="color: #bdbdb3; font-weight: bold;">%&gt;%</span>
+    transform(rate = change/interval)
+
+meanByTime <span style="color: #bdbdb3; font-weight: bold;">%&gt;%</span> 
+    subset((interval &lt;=6)) <span style="color: #bdbdb3; font-weight: bold;">%&gt;%</span>
+    lm(rate~time, data = .) <span style="color: #bdbdb3; font-weight: bold;">%&gt;%</span>
+    summary()
+</pre>
+</div>
+
+<pre class="example">
+Call:
+lm(formula = rate ~ time, data = .)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.68058 -0.15459  0.00655  0.12647  0.56621 
+
+Coefficients:
+	    Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  0.99236    0.07831  12.673   &lt;2e-16 ***
+time        -0.04006    0.01791  -2.237   0.0292 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.2697 on 58 degrees of freedom
+Multiple R-squared:  0.07941,	Adjusted R-squared:  0.06354 
+F-statistic: 5.003 on 1 and 58 DF,  p-value: 0.02916
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgheadline25" class="outline-3">
+<h3 id="orgheadline25"><span class="section-number-3">9.2</span> TrackScar provides a sensitive measure of differences in fecundity</h3>
+<div class="outline-text-3" id="text-9-2">
+<blockquote>
+<p>
+This difference is significant (Paired t-test; n=3; p = 0.030). Consistent with this expectation, daughter cells of haploid strain
+S288C produced an average of 4.9 daughters in a six-hour period,
+whereas mother cells produced an average of 5.4 daughters (Fig. S1b).
+</p>
+</blockquote>
+
+<div class="org-src-container">
+
+<pre class="src src-R"><span style="color: #6a7550;">source</span>(<span style="color: #CC5542;">"analyze-two-color-trackscar.R"</span>)
+
+heatStressCandidatesWithAge <span style="color: #6a7550;">&lt;-</span> read.csv(<span style="color: #CC5542;">"2016-Maxwell-Magwene-two-color-trackscar.csv"</span>, as.is=T)
+
+fig1Means <span style="color: #6a7550;">&lt;-</span> haploidCounts <span style="color: #bdbdb3; font-weight: bold;">%&gt;%</span> 
+    subset((first %<span style="color: #7d7c61; font-weight: bold;">in</span>% c(1,2)))<span style="color: #bdbdb3; font-weight: bold;">%&gt;%</span> <span style="color: #6abd50;"># </span><span style="color: #6aaf50;">restrict to 1 &amp; 2 bud old cells</span>
+        subset(!is.na(growth)) <span style="color: #bdbdb3; font-weight: bold;">%&gt;%</span> 
+        transform(
+            group=factor(first,
+                labels = c(1,2))
+            ) <span style="color: #bdbdb3; font-weight: bold;">%&gt;%</span>
+      ddply(
+        c(<span style="color: #CC5542;">"folder"</span>, <span style="color: #CC5542;">"group"</span>),
+        plyr::summarize,
+        mean=mean(growth)) <span style="color: #bdbdb3; font-weight: bold;">%&gt;%</span>
+      dcast(folder~group, value.var = <span style="color: #CC5542;">"mean"</span>)
+
+
+cat(<span style="color: #CC5542;">"*** Daughter mean:\n"</span>)
+mean(fig1Means[[<span style="color: #CC5542;">"1"</span>]])
+
+cat(<span style="color: #CC5542;">"*** One bud mean:\n"</span>)
+mean(fig1Means[[<span style="color: #CC5542;">"2"</span>]])
+
+cat(<span style="color: #CC5542;">"*** T-test\n"</span>)
+with( fig1Means,
+     t.test( <span style="color: #CC5542;">`1`</span>, <span style="color: #CC5542;">`2`</span>,paired=<span style="color: #528fd1;">TRUE</span>))
+</pre>
+</div>
+
+<pre class="example">
+*** Daughter mean:
+[1] 4.912125
+*** One bud mean:
+[1] 5.420181
+*** T-test
+
+	Paired t-test
+
+data:  1 and 2
+t = -5.5597, df = 2, p-value = 0.03086
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -0.9012408 -0.1148706
+sample estimates:
+mean of the differences 
+	     -0.5080557
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgheadline26" class="outline-3">
+<h3 id="orgheadline26"><span class="section-number-3">9.3</span> Population Growth Rate and Mean Fecundity Are Well Correlated</h3>
+<div class="outline-text-3" id="text-9-3">
+<blockquote>
+<p>
+The average fecundity of cells measured using TrackScar and the
+maximum population growth rate measured by optical density at 35.5C
+are well-correlated (r<sup>2</sup>=0.58; Fig. S2).
+</p>
+</blockquote>
+
+<div class="org-src-container">
+
+<pre class="src src-R"><span style="color: #6a7550;">source</span>(<span style="color: #CC5542;">"analyze-two-color-trackscar.R"</span>)
+with(subset(candidateGrowth, !is.na(mean_37C)),
+     cor(mean_37C, maxGrowth35halfC))^2
+</pre>
+</div>
+
+<pre class="example">
+[1] 0.5762419
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgheadline27" class="outline-3">
+<h3 id="orgheadline27"><span class="section-number-3">9.4</span> Heat stress can alter the distribution of ages in a population</h3>
+<div class="outline-text-3" id="text-9-4">
+<blockquote>
+<p>
+Furthermore, neither YJM693 nor S288C showed significantly different
+age distributions at 30°C and 35.5°C (Kolmogorov-Smirnov test,
+p&gt;0.3). However, YJM996 had a significantly different distribution of
+ages during growth at 35.5°C (Kolmogorov-Smirnov test, p=1.50×〖10〗
+^(-9)). . Furthermore, neither YJM693 nor S288C showed significantly
+different age distributions at 30°C and 35.5°C (Kolmogorov-Smirnov
+test, p&gt;0.3). However, YJM996 had a significantly different
+distribution of ages during growth at 35.5°C (Kolmogorov-Smirnov test,
+p=1.74×〖10〗<sup>(-7)</sup>).
+</p>
+</blockquote>
+
+<div class="org-src-container">
+
+<pre class="src src-R"><span style="color: #6a7550;">source</span>(<span style="color: #CC5542;">"analyze-two-color-trackscar.R"</span>)
+
+subset( heatStressCandidates, 
+       strain %<span style="color: #7d7c61; font-weight: bold;">in</span>% c(1587, 1513, 1523)) <span style="color: #bdbdb3; font-weight: bold;">%&gt;%</span> 
+    dlply(.(strain), with, 
+          ks.test(first[temp == <span style="color: #CC5542;">"30C"</span>], first[temp == <span style="color: #CC5542;">"37C"</span>]))
+</pre>
+</div>
+
+<pre class="example">
+$`1513`
+
+	Two-sample Kolmogorov-Smirnov test
+
+data:  first[temp == "30C"] and first[temp == "37C"]
+D = 0.04288, p-value = 0.3212
+alternative hypothesis: two-sided
+
+
+$`1523`
+
+	Two-sample Kolmogorov-Smirnov test
+
+data:  first[temp == "30C"] and first[temp == "37C"]
+D = 0.16369, p-value = 1.737e-07
+alternative hypothesis: two-sided
+
+
+$`1587`
+
+	Two-sample Kolmogorov-Smirnov test
+
+data:  first[temp == "30C"] and first[temp == "37C"]
+D = 0.042596, p-value = 0.6035
+alternative hypothesis: two-sided
+
+
+attr(,"split_type")
+[1] "data.frame"
+attr(,"split_labels")
+  strain
+1   1513
+2   1523
+3   1587
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline29" class="outline-2">
+<h2 id="orgheadline29"><span class="section-number-2">10</span> <a id="orgtarget4"></a> Session Info</h2>
+<div class="outline-text-2" id="text-10">
+<div class="org-src-container">
+
+<pre class="src src-R"><span style="color: #6a7550;">source</span>(<span style="color: #CC5542;">"load-libraries.R"</span>)
+sessionInfo()
+</pre>
+</div>
+
+<pre class="example">
+R version 3.2.3 (2015-12-10)
+Platform: x86_64-apple-darwin13.4.0 (64-bit)
+Running under: OS X 10.10.5 (Yosemite)
+
+locale:
+[1] C
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] cellGrowth_1.14.0 locfit_1.5-9.1    gridExtra_2.2.1   scales_0.4.0     
+[5] wesanderson_0.3.2 reshape2_1.4.1    plyr_1.8.3        magrittr_1.5     
+[9] ggplot2_2.1.0    
+
+loaded via a namespace (and not attached):
+[1] Rcpp_0.12.4      lattice_0.20-33  grid_3.2.3       gtable_0.2.0    
+[5] stringi_1.0-1    tools_3.2.3      stringr_1.0.0    munsell_0.4.3   
+[9] colorspace_1.2-6
+</pre>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: June 2016</p>
+<p class="author">Author: Colin S Maxwell and Paul M Magwene</p>
+<p class="date">Created: 2016-06-07 Tue 08:59</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

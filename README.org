@@ -9,10 +9,14 @@ the paper "The Quick and the Dead: Microbial Demography at the Yeast
 Thermal Limit" and provides links to the code (or the code itself)
 used to generate figures and the statistical analysis in the
 paper.This document is written in [[http:orgmode.org][org-mode]] format, and is best viewed
-using emacs--an open-source text editor.
+using emacs--an open-source text editor. If this document is viewed on
+github, links don't necessarily point to the correct sections, and the
+results of source blocks (see below) are not displayed. If you want to
+look at this document in a web-browser, we recommend [[file:README.html][this HTML]]
+document that was exported from org-mode.
 
 The scripts used to produce the figures are stand-alone files linked
-to in the section [[figs][Scripts used to generate figures]]. 
+to in the section [[figs][Scripts used to generate figures]] 
 
 Statistics referenced in the text are listed in the sections
 [[results][Statistics for Results]] and [[supp][Statistics for Supplementary Results]]. The
@@ -257,7 +261,7 @@ paper.
 - first	:: Number of scars stained with the first stain
 - last :: The number of scars stained with the second stain.
 
-** heat-stress-candidates.csv
+** 2016-Maxwell-Magwene-heat-stress-candidates.csv
 
 This is a file that gives a list of the strains sensitive to growth at
 35.5C that were examined using TrackScar. The file was originally
@@ -276,15 +280,15 @@ couldn't be analyzed using TrackScar.
 - maxGrowth37C :: Growth rate at 37C
 - exclusion_reason :: If it was excluded from subsequent analysis, why?
 
-** PMY_to_YJM.csv
+** 2016-Maxwell-Magwene-PMY-to-YJM.csv
 
-This is a mapping between the 100 genomes PMY (Paul Magwene Yeast)
-numbers and YJM (Yeast John McCusker) numbers.
+ This is a mapping between the 100 genomes PMY (Paul Magwene Yeast)
+ numbers and YJM (Yeast John McCusker) numbers.
 
-------------------------------------------------------------
+ ------------------------------------------------------------
 
-- PMY :: The PMY number
-- Strain :: The YJM number
+ - PMY :: The PMY number
+ - Strain :: The YJM number
 
 * Scripts used to generate the data files
 
@@ -295,6 +299,8 @@ the paper and annotate it with the appropriate metadata. Since these
 scripts rely on unsubmitted data, they cannot be run but are submitted
 to allow the data processing steps to be examined. See above for which
 scripts generated which files.
+
+------------------------------------------------------------
 
 - [[file:process-growth-curves.R]]
 - [[file:process-mito-trackscar-data.R]]
@@ -317,7 +323,9 @@ data in a way that gets reused across multiple figures or code
 blocks. They will all run as self-contained scripts, but most don't
 generate  output, they just make certain datasets available.
 
-- [[file:analyze-growth-curves]]
+------------------------------------------------------------
+
+- [[file:analyze-growth-curves.R]]
 - [[file:analyze-linear-models.R]]
 - [[file:analyze-S288C-trackscar.R]]
 - [[file:analyze-three-color-trackscar.R]]
@@ -328,24 +336,23 @@ generate  output, they just make certain datasets available.
 Each figure panel that contains data was generated using the code
 contained in the scripts below.
 
-
+------------------------------------------------------------
 
 
 - [[file:generate-figures.R]] :: this is just a convenience script that
      runs all the scripts below
-
-- [[file:figure-2.R]]
-- [[file:figure-3.R]]
-- [[file:figure-4.R]]
-- [[file:figure-5.R]]
-- [[file:figure-6.R]]
-- [[file:figure-S1.R]]
-- [[file:figure-S2.R]]
-- [[file:figure-S3.R]]
-- [[file:figure-S4.R]]
-- [[file:figure-S5.R]]
-- [[file:figure-S6.R]]
-- [[file:figure-S7.R]]
+- [[file:figure-2.R]] ::
+- [[file:figure-3.R]] ::
+- [[file:figure-4.R]] ::
+- [[file:figure-5.R]] ::
+- [[file:figure-6.R]] ::
+- [[file:figure-S1.R]] ::
+- [[file:figure-S2.R]] ::
+- [[file:figure-S3.R]] ::
+- [[file:figure-S4.R]] ::
+- [[file:figure-S5.R]] ::
+- [[file:figure-S6.R]] ::
+- [[file:figure-S7.R]] ::
 
 * <<results>> Statistics for Results
 
@@ -364,7 +371,7 @@ The following code blocks justify the statistics cited in the main text.
  This code runs the KS test to compare the fecundity of live
  stressed cells to unstressed cells.
 
- #+BEGIN_SRC R :results value :colnames yes
+ #+BEGIN_SRC R :exports both :results value :colnames yes
    source("analyze-two-color-trackscar.R")
    source("analyze-three-color-trackscar.R")
 
@@ -454,7 +461,7 @@ average fecundity of a cohort in the strains YJM693 and YJM996 (linear
 model, p=0.048 and p=0.00076, respectively).
 #+END_QUOTE
 
-#+BEGIN_SRC R :colnames yes
+#+BEGIN_SRC R :exports both :colnames yes
   source("analyze-linear-models.R")
 
   ## This just prints the p-value associated with the t-test of the
@@ -480,7 +487,7 @@ The average fecundity of a cohort of S288C was not affected by its age
 at any temperature (Fig. S5).
 #+END_QUOTE
 
-#+BEGIN_SRC R :colnames yes
+#+BEGIN_SRC R :exports both :colnames yes
 source("analyze-linear-models.R")
 
 ## This just prints the p-value associated with the t-test of the
@@ -516,7 +523,7 @@ mean)(Fig. 5a).
 
 This is the estimate of the relationship between the age and fecundity
 
-#+BEGIN_SRC R :colnames yes
+#+BEGIN_SRC R :exports both :colnames yes
   source("analyze-linear-models.R")
   lmSummaries %>% 
       subset(var == "first") %>% 
@@ -563,7 +570,7 @@ CI ± 6%) increase in the probability of death for each additional
 unit of replicative age in this strain during heat stress.
 #+END_QUOTE
 
-#+BEGIN_SRC R :results output
+#+BEGIN_SRC R :exports both :results output
   source("analyze-two-color-trackscar.R")
 
   mortality1513 <- heatStressCandidatesWithAge %>%
@@ -572,15 +579,15 @@ unit of replicative age in this strain during heat stress.
       transform(dead = ifelse(growth < 4, 1, 0)) %>%
       glm(dead~first, data = .,  family="binomial")
   
-  cat("**** Summary of regression:\n\n")
+  cat("Summary of regression:\n\n")
   summary(mortality1513)
-  cat("**** Confidence intervals:\n\n")
+  cat("oConfidence intervals:\n\n")
   confint(mortality1513)
 #+END_SRC
 
 #+RESULTS:
 #+begin_example
-**** Summary of regression:
+Summary of regression:
 
 
 Call:
@@ -605,16 +612,17 @@ AIC: 2403.9
 
 Number of Fisher Scoring iterations: 4
 
-**** Confidence intervals:
+Confidence intervals:
 
                  2.5 %     97.5 %
 (Intercept) -1.1595791 -0.8264455
 first        0.1337114  0.2346053
 #+end_example
 
-The estimate of the increase in mortality is 20%:
+Since the parameter estimates are log-odds, we exponentiate to get the
+odds. The estimate of the increase in mortality is 20%:
 
-#+BEGIN_SRC R
+#+BEGIN_SRC R :exports both
 
 exp(0.183)
 
@@ -625,7 +633,7 @@ exp(0.183)
 
 95% confidence interval width:
 
-#+BEGIN_SRC R
+#+BEGIN_SRC R :exports both
 
 exp(0.183) - exp(0.13)
 
@@ -649,7 +657,7 @@ The following code blocks justify the statistics cited in the supplement.
  The approach here is to fit a linear regression to the number of buds
  added for this timeseries.
 
- #+BEGIN_SRC R :colnames yes
+ #+BEGIN_SRC R :exports both :colnames yes
    source("load-libraries.R")
    timeseriesCounts <- read.csv("2016-Maxwell-Magwene-two-color-trackscar-timeseries.csv")
    ## Note that CMY1 is the S288C genomic reference strain and is haploid
@@ -676,7 +684,7 @@ The following code blocks justify the statistics cited in the supplement.
  (linear model; p = 0.03).
  #+END_QUOTE
 
- #+BEGIN_SRC R :results output
+ #+BEGIN_SRC R :exports both :results output
    source("load-libraries.R")
    timeseriesCounts <- read.csv("2016-Maxwell-Magwene-two-color-trackscar-timeseries.csv")
 
@@ -728,7 +736,7 @@ The following code blocks justify the statistics cited in the supplement.
  whereas mother cells produced an average of 5.4 daughters (Fig. S1b).
  #+END_QUOTE
 
- #+BEGIN_SRC R :results output
+ #+BEGIN_SRC R :exports both :results output
    source("analyze-two-color-trackscar.R")
 
    heatStressCandidatesWithAge <- read.csv("2016-Maxwell-Magwene-two-color-trackscar.csv", as.is=T)
@@ -787,7 +795,7 @@ The following code blocks justify the statistics cited in the supplement.
  are well-correlated (r^2=0.58; Fig. S2).
  #+END_QUOTE
 
- #+BEGIN_SRC R :results output
+ #+BEGIN_SRC R :exports both :results output
  source("analyze-two-color-trackscar.R")
  with(subset(candidateGrowth, !is.na(mean_37C)),
       cor(mean_37C, maxGrowth35halfC))^2
@@ -810,7 +818,7 @@ The following code blocks justify the statistics cited in the supplement.
  p=1.74×〖10〗^(-7)).
 #+END_QUOTE
 
-#+BEGIN_SRC R :results output
+#+BEGIN_SRC R :exports both :results output
   source("analyze-two-color-trackscar.R")
 
   subset( heatStressCandidates, 
@@ -859,7 +867,7 @@ attr(,"split_labels")
 
 * <<session>> Session Info
 
-#+BEGIN_SRC R :results output
+#+BEGIN_SRC R :exports both :results output
   source("load-libraries.R")
   sessionInfo()
 #+END_SRC
