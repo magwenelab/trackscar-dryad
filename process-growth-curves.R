@@ -1,10 +1,6 @@
-
 source("tecan.R")
-
-library(cellGrowth)
-library(magrittr)
-library(plyr)
-
+source("load-libraries.R")
+    
 ## A mapping from YJM to PMY numbers
 ## removing the ones that are haploid as per Dan's info on 1/24/15
 strainMap <- read.csv(file.path("2015_screening_for_TS", "PMY_to_YJM.csv")) %>%

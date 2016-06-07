@@ -1,5 +1,5 @@
 source("budscar-count-utilities.R")
-library(magrittr)
+source("load-libraries.R")
 
 ### Read in all the trackscar data
 
@@ -8,7 +8,6 @@ index <- read.csv(file.path(countsDir, "index.csv"))
 allCounts <- getAllCounts(index, countsDir)
 
 ### Make a list of all the strains examined during the project
-
 heatCand <- read.csv("2016-Maxwell-Magwene-heat-stress-candidates.csv", skip=1) %>%
     subset(exclusion_reason == "")
 candidateStrains <- rep("second_screening", nrow(heatCand))
@@ -46,7 +45,12 @@ heatStressCandidatesWithAge <-
     allCounts %>%
     subset((strain %in% names(candidateStrains)) &
            (media == "YPD") &
-           ((strain == "1587") | (temp %in% c("30C", "37C"))) & # 37C and 30C. all temps for s288c
+           ((strain == "1587") | (temp %in% c("30C", "37C"))) & # 37C
+                                                                # and
+                                                                # 30C. all
+                                                                # temps
+                                                                # for
+                                                                # s288c
            (time == 6) & # only experiments that were 6hr
            (growth < 10))
 
@@ -56,7 +60,7 @@ heatStressCandidatesWithAge <-
     rbind(heatStressCandidatesWithAge,
           recoveryCountsForMortality[,colnames(heatStressCandidatesWithAge)]) # defined in process-three-color-trackscar.R
 
-q## include the haploid S288C data for fig S1
+## include the haploid S288C data for fig S1
 
 ## These are the haploid S288C data shown to compare mother cell
 ## and daughter cell fecundity
@@ -65,7 +69,6 @@ haploidCounts <- subset(allCounts,
                                       "2015-04-01_S288C_30C",
                                       "2014_03_11_WGA_microscopy")) %>%
     subset(strain %in% c("CMY1","1638"))
-
 heatStressCandidatesWithAge <- rbind(heatStressCandidatesWithAge,
                                      haploidCounts[,colnames(heatStressCandidatesWithAge)])
 

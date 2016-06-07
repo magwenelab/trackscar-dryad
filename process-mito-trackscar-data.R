@@ -1,10 +1,20 @@
 source("load-libraries.R")
 
 readFile <- function(theFile, ... ){
-    read.csv(file.path("2016-01-18_mitos_and_trackscar",theFile), as.is=T) %>%
-      transform(temp = sapply(strsplit(as.character(strain), "-"), "[", 2))
+    ## Convenience function to read in the data and
+    ## split the strain name from the temperature
+    read.csv(
+        file.path("2016-01-18_mitos_and_trackscar",theFile),
+        as.is=T) %>%
+        transform(
+            temp = sapply(
+                strsplit(
+                    as.character(strain),
+                    "-"),
+                "[", 2))
 }
 
+## Meta data for the files to read in
 pheno <- data.frame(
     theFile = c("exp011616_colin.csv",
                 "exp011816_colin.csv",
@@ -15,10 +25,14 @@ pheno <- data.frame(
     rep = c(1,2,3),
     stringsAsFactors=FALSE)
 
-dat <- ddply( pheno, .(rep, theFile, experiment_ID),
-             splat(readFile), .inform=T) %>%
+## Read in the files, calculate the fecundity 
+dat <- ddply( pheno,
+             .(rep, theFile, experiment_ID),
+             splat(readFile),
+             .inform=T) %>%
     transform( growth = second - first)
 
+## Write a file for Dryad
 dat <- with(dat,
     data.frame(
         experiment_ID = experiment_ID,

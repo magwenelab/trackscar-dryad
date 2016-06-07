@@ -10,10 +10,13 @@ mapping <- data.frame(
     treatment = c("A", "B", "C", "D"),
     recoveryTemp = c(37,30,37,30),
     recoveryTime = c(3,3,6,6))
-  
+
+## Read in the file using metadata in the recovery_index file
 recoveryFiles <- read.csv( file.path(countsDir, "recovery_index.csv"), as.is=T) %>%
     transform(counts_file = file.path(countsDir, counts_file))
 
+## Uses getThreeColorGrowth to calculate the fecundities
+## Merges with the treatment information, and annotates it
 recoveryCounts <- recoveryFiles %>%
     ddply(.(temp, folder, sampling,
             counts_file, who_counted,
@@ -31,7 +34,7 @@ recoveryCounts <- recoveryFiles %>%
                   labels=c("30C recovery", "37C recovery")),
               recoveryTime = paste(recoveryTime, "hr recovery"))
 
-
+## Write a file for Dryad
 plyr::summarize(recoveryCounts,
                 folder,
                 counts_file,
