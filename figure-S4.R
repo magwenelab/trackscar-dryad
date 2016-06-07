@@ -2,7 +2,7 @@ source("load-libraries.R")
 source("analyze-two-color-trackscar.R")
 source("fig-theme.R")
 
-YJM <- read.csv("2015_screening_for_TS/PMY_to_YJM.csv")
+YJM <- read.csv("2016-Maxwell-Magwene-PMY_to_YJM.csv")
 
 slowStrains <- subset(heatStressCandidatesMean,
                       mean_37C/mean_30C < 0.93)$strain

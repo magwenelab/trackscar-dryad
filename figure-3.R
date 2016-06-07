@@ -7,7 +7,7 @@ source("analyze-two-color-trackscar.R")
 source("budscar-count-utilities.R")
 source("fig-theme.R")
 
-YJM <- read.csv("2015_screening_for_TS/PMY_to_YJM.csv")
+YJM <- read.csv("2016-Maxwell-Magwene-PMY_to_YJM.csv")
 strainMapping <- YJM$Strain
 names(strainMapping) <- as.character(YJM$PMY)
 
