@@ -9,7 +9,6 @@ recoveryCounts <- read.csv("2016-Maxwell-Magwene-three-color-trackscar.csv")
 recoveryCountsForMortality <-
     recoveryCounts %>%
     subset( temp %in% c("30C", "37C")) %>% 
-    subset( treatment %in% c("B", "D") ) %>% # These are 6hr of growth
     subset( !is.na(growth)) %>%
     transform(experiment_ID = experiment, growth = growth1,
               time=6, media="YPD", type="other", number_of_colors=2)
