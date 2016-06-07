@@ -9,7 +9,7 @@ allCounts <- getAllCounts(index, countsDir)
 
 ### Make a list of all the strains examined during the project
 
-heatCand <- read.csv("heat-stress-candidates.csv", skip=1) %>%
+heatCand <- read.csv("2016-Maxwell-Magwene-heat-stress-candidates.csv", skip=1) %>%
     subset(exclusion_reason == "")
 candidateStrains <- rep("second_screening", nrow(heatCand))
 names(candidateStrains) <- as.character(heatCand$PMY)

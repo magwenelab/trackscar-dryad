@@ -33,7 +33,7 @@ maxGrowthCast2 <-
 ## Identify candidate strains for screening
 ## This code generated the original file, but it's since been annotated
 
-## it's now called heat-stress-candidates.csv
+## it's now called 2016-Maxwell-Magwene-heat-stress-candidates.csv
 ## and contains information about which candidates were excluded from consideration
 ## for TrackScar and why
 
