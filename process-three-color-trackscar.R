@@ -21,7 +21,8 @@ recoveryCounts <- recoveryFiles %>%
           function(x) read.csv(x$counts_file)) %>%
     ddply( c("temp", "folder", "counts_file",
              "experiment", "sampling",
-             "strain", "treatment", "who_counted"), getThreeColorGrowth) %>% # defined in budscarCountUtilities
+             "strain", "treatment", "who_counted"),
+          getThreeColorGrowth) %>% # defined in budscarCountUtilities.R
     merge(mapping, by = "treatment") %>%
     subset(recoveryTime == 6) %>% # don't consider the 3hr recovery data
     transform(recoveryTemp = factor(
@@ -30,4 +31,21 @@ recoveryCounts <- recoveryFiles %>%
                   labels=c("30C recovery", "37C recovery")),
               recoveryTime = paste(recoveryTime, "hr recovery"))
 
-write.csv(recoveryCounts, "dryad/2016-Maxwell-Magwene-three-color-trackscar.csv", row.names=FALSE)
+
+plyr::summarize(recoveryCounts,
+                folder,
+                counts_file,
+                experiment,
+                sampling,
+                who_counted,
+                temp,
+                strain,
+                growth,
+                growth1,
+                growth2,
+                first,
+                last,
+                recoveryTemp,
+                recoveryTime) %>% 
+    write.csv("2016-Maxwell-Magwene-three-color-trackscar.csv",
+              row.names=FALSE)
