@@ -51,7 +51,7 @@ fig5b =  heatStressCandidatesGrowthByFirstAndReplicate %>%
     scale_shape_manual(values=c(1,2))+
     fig_theme
 
-pdf("figures/figure5.pdf", width=4.75, height=6)
+pdf("figure5.pdf", width=4.75, height=6)
 grid.arrange(fig5a,
              fig5b,
              nrow = 2, ncol = 1

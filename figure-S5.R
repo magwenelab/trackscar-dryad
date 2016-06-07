@@ -22,4 +22,4 @@ figS5 = S288CGrowthByFirst %>%
     scale_color_manual("temp", values=c("brown", wes_palette("Rushmore")[-2]))+
     fig_theme
 
-ggsave("figures/figureS5.pdf", figS5, height=6, width=6)
+ggsave("figureS5.pdf", figS5, height=6, width=6)

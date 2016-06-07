@@ -312,11 +312,16 @@ generate  output, they just make certain datasets available.
 
 * Scripts used to generate figures
 
-- [[file:generate-figures.R]]
+Each figure panel that contains data was generated using the code
+contained in the scripts below.
+
+
+- [[file:generate-figures.R]] :: this is just a convenience function that
+     runs all the scripts below
 - [[file:figure-2.R]]
 - [[file:figure-3.R]]
 - [[file:figure-4.R]]
-- [[file::figure-5.R]]
+- [[file:figure-5.R]]
 - [[file:figure-6.R]]
 - [[file:figure-S1.R]]
 - [[file:figure-S2.R]]

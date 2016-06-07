@@ -3,7 +3,7 @@ source("fig-theme.R")
 
 # See labnotebook volume 5 pgs 12 and 14 for raw data
 
-dat <- read.csv("dryad/2016-Maxwell-Magwene-mito-morphology-scoring.csv",
+dat <- read.csv("2016-Maxwell-Magwene-mito-morphology-scoring.csv",
                 as.is=T,
                 skip=1)
 
@@ -30,8 +30,7 @@ datMeans <- ddply(dat.m,
                               levels=c("CMY178", "CMY177", "CMY182"),
                               labels=c("YJM996", "YJM693", "S288C")))
 
-pdf("figures/figureS7.pdf", height=2, width=7)
-datMeans %>%
+p <- datMeans %>%
   subset(description != "threads") %>%
   ggplot(aes(x=factor( temp ),
              y=mean, col=description,
@@ -43,5 +42,6 @@ datMeans %>%
   scale_y_continuous("Percent of population", labels=percent)+
   xlab("Temperature")+
   theme_clean()+
-  scale_color_manual("", values=c("red", "darkorange", "blue"))
-dev.off()
+    scale_color_manual("", values=c("red", "darkorange", "blue"))
+
+ggsave("figureS7.pdf", p, height=2, width=7)

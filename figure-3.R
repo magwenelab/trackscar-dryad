@@ -7,7 +7,7 @@ source("analyze-two-color-trackscar.R")
 source("budscar-count-utilities.R")
 source("fig-theme.R")
 
-YJM <- read.csv("2016-Maxwell-Magwene-PMY_to_YJM.csv")
+YJM <- read.csv("2016-Maxwell-Magwene-PMY-to-YJM.csv")
 strainMapping <- YJM$Strain
 names(strainMapping) <- as.character(YJM$PMY)
 
@@ -34,4 +34,4 @@ fig3 = heatStressCandidatesFreq %>%
     scale_x_continuous("Daughters in 6hr", breaks=seq(0,10, by=2))+
     scale_y_continuous("Fraction of population", labels=percent)+fig_theme
 
-ggsave("figures/figure3.pdf", fig3, height=3, width=5)
+ggsave("figure3.pdf", fig3, height=3, width=5)

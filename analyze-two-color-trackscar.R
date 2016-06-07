@@ -1,7 +1,7 @@
 source("load-libraries.R")
 source("budscar-count-utilities.R")
 
-heatStressCandidatesWithAge <- read.csv("dryad/2016-Maxwell-Magwene-two-color-trackscar.csv", as.is=T)
+heatStressCandidatesWithAge <- read.csv("2016-Maxwell-Magwene-two-color-trackscar.csv", as.is=T)
 
 ################## Random sampling only
 ## restrict to only experiments where random sampling was done
@@ -43,3 +43,10 @@ candidateGrowth <- merge(maxGrowthCast2,
                          by.x="PMY",
                          by.y="strain")
 
+### Create data for figS1 and some statistics
+
+haploidCounts <- subset(heatStressCandidatesWithAge,
+                        folder %in% c("2015-03-31_S288C_30C",
+                                      "2015-04-01_S288C_30C",
+                                      "2014_03_11_WGA_microscopy")) %>%
+    subset(strain %in% c("CMY1","1638"))

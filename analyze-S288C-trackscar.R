@@ -2,8 +2,8 @@
 source("load-libraries.R")
 source("budscar-count-utilities.R")
 
-heatStressCandidatesWithAge <- read.csv("dryad/2016-Maxwell-Magwene-two-color-trackscar.csv")
-recoveryCounts <- read.csv("dryad/2016-Maxwell-Magwene-three-color-trackscar.csv")
+heatStressCandidatesWithAge <- read.csv("2016-Maxwell-Magwene-two-color-trackscar.csv")
+recoveryCounts <- read.csv("2016-Maxwell-Magwene-three-color-trackscar.csv")
 
 A <- heatStressCandidatesWithAge %>%
     subset(sampling == "random")%>%

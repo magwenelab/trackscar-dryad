@@ -61,7 +61,7 @@
                     )
            }else{ # 2 color data
                with(x, 
-                    data.frame(strain = strain,
+                    data.frame(strain = as.numeric(strain),
                                growth=growth,
                                first = first,
                                second = last))}},
@@ -74,7 +74,7 @@
          p = ks.test(growth[type == "live37"],
                      growth[type == "noheat"])$p.value)
 
-   # count(liveDeadUnstressed, c("strain", "type"))
+   #count(liveDeadUnstressed, c("strain", "type"))
  #+END_SRC
 
  #+RESULTS:
@@ -282,8 +282,7 @@ exp(0.183) - exp(0.13)
 #+END_SRC
 
 #+RESULTS:
-: 0.061986024756209
-
+: 0.06198602475620
 
 * Supplementary results
 
@@ -300,7 +299,7 @@ exp(0.183) - exp(0.13)
 
  #+BEGIN_SRC R :colnames yes
    source("load-libraries.R")
-   timeseriesCounts <- read.csv("dryad/2016-Maxwell-Magwene-two-color-trackscar-timeseries.csv")
+   timeseriesCounts <- read.csv("2016-Maxwell-Magwene-two-color-trackscar-timeseries.csv")
    ## Note that CMY1 is the S288C genomic reference strain and is haploid
    timeseriesCounts %>%
        subset(strain == "CMY1") %>% 
@@ -327,7 +326,7 @@ exp(0.183) - exp(0.13)
 
  #+BEGIN_SRC R :results output
    source("load-libraries.R")
-   timeseriesCounts <- read.csv("dryad/2016-Maxwell-Magwene-two-color-trackscar-timeseries.csv")
+   timeseriesCounts <- read.csv("2016-Maxwell-Magwene-two-color-trackscar-timeseries.csv")
 
    meanByTime <- ddply(timeseriesCounts,
                        .(strain, time),
@@ -357,7 +356,7 @@ exp(0.183) - exp(0.13)
  -0.68058 -0.15459  0.00655  0.12647  0.56621 
 
  Coefficients:
-             Estimate Std. Error t value Pr(>|t|)    
+	     Estimate Std. Error t value Pr(>|t|)    
  (Intercept)  0.99236    0.07831  12.673   <2e-16 ***
  time        -0.04006    0.01791  -2.237   0.0292 *  
  ---
@@ -367,7 +366,7 @@ exp(0.183) - exp(0.13)
  Multiple R-squared:  0.07941,	Adjusted R-squared:  0.06354 
  F-statistic: 5.003 on 1 and 58 DF,  p-value: 0.02916
 
- #+end_example
+#+end_example
 
 ** TrackScar provides a sensitive measure of differences in fecundity
 
@@ -380,7 +379,7 @@ exp(0.183) - exp(0.13)
  #+BEGIN_SRC R :results output
    source("analyze-two-color-trackscar.R")
 
-   haploidCounts <- read.csv("dryad/2016-Maxwell-Magwene-two-color-trackscar-haploid-S288C.csv")
+   heatStressCandidatesWithAge <- read.csv("2016-Maxwell-Magwene-two-color-trackscar.csv", as.is=T)
 
    fig1Means <- haploidCounts %>% 
        subset((first %in% c(1,2)))%>% # restrict to 1 & 2 bud old cells
@@ -409,24 +408,25 @@ exp(0.183) - exp(0.13)
 
  #+RESULTS:
  #+begin_example
-*** Daughter mean:
-[1] 4.912125
-*** One bud mean:
-[1] 5.420181
-*** T-test
+ *** Daughter mean:
+ [1] 4.912125
+ *** One bud mean:
+ [1] 5.420181
+ *** T-test
 
-	Paired t-test
+	 Paired t-test
 
-data:  1 and 2
-t = -5.5597, df = 2, p-value = 0.03086
-alternative hypothesis: true difference in means is not equal to 0
-95 percent confidence interval:
- -0.9012408 -0.1148706
-sample estimates:
-mean of the differences 
-             -0.5080557 
+ data:  1 and 2
+ t = -5.5597, df = 2, p-value = 0.03086
+ alternative hypothesis: true difference in means is not equal to 0
+ 95 percent confidence interval:
+  -0.9012408 -0.1148706
+ sample estimates:
+ mean of the differences 
+	      -0.5080557 
 
 #+end_example
+
 ** Population Growth Rate and Mean Fecundity Are Well Correlated
 
  #+BEGIN_QUOTE

@@ -6,7 +6,7 @@ library(reshape2)
 ## as calculated by the "cellGrowth" package in Bioconductor using a
 ## non-parametric fit
 
-maxGrowth <- read.csv("dryad/2016-Maxwell-Magwene-100genomes-temperature-growth.csv")
+maxGrowth <- read.csv("2016-Maxwell-Magwene-100genomes-temperature-growth.csv")
 
 ## Calculate the average growth for each strain, temperature and replicate
 maxGrowthCast <-

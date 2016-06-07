@@ -5,7 +5,7 @@ library(magrittr)
 source("fig-theme.R")
 source("budscar-count-utilities.R")
 
-maxGrowth <- read.csv("dryad/2016-Maxwell-Magwene-100genomes-temperature-growth.csv")
+maxGrowth <- read.csv("2016-Maxwell-Magwene-100genomes-temperature-growth.csv")
 
 averageGrowth <- maxGrowth %>%
     ddply(.(PMY, temp),
@@ -35,4 +35,4 @@ figS3 <- averageGrowth %>%
              label=c("S288C","All others"),
              col=c("darkred", "grey50"))
 
-ggsave("figures/figureS3.pdf", figS3, width=5, height=3)
+ggsave("figureS3.pdf", figS3, width=5, height=3)

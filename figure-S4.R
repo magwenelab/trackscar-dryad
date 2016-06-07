@@ -2,7 +2,7 @@ source("load-libraries.R")
 source("analyze-two-color-trackscar.R")
 source("fig-theme.R")
 
-YJM <- read.csv("2016-Maxwell-Magwene-PMY_to_YJM.csv")
+YJM <- read.csv("2016-Maxwell-Magwene-PMY-to-YJM.csv")
 
 slowStrains <- subset(heatStressCandidatesMean,
                       mean_37C/mean_30C < 0.93)$strain
@@ -27,4 +27,4 @@ figS4 =
     scale_x_continuous("Daughters in 6hr", breaks=c(0:10))+
     ylab("Frequency")+fig_theme
 
-ggsave("figures/figureS4.pdf", figS4, height=6, width=8)
+ggsave("figureS4.pdf", figS4, height=6, width=8)

@@ -14,4 +14,4 @@ figS2 <- ggplot(candidateGrowth,
     xlab("Mean division rate (daughters per hour)")+
     ylab("Max population growth rate (OD/hour)")
 
-ggsave("figures/figureS2.pdf", width=3, height=3)
+ggsave("figureS2.pdf", width=3, height=3)

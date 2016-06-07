@@ -58,4 +58,4 @@ fig4  = recoveryCounts %>%
     scale_shape_manual(values=c(1,2))+
     fig_theme
 
-ggsave("figures/figure4.pdf", fig4, height=4, width=3.4)
+ggsave("figure4.pdf", fig4, height=4, width=3.4)

@@ -1,16 +1,9 @@
 source("load-libraries.R")
 source("fig-theme.R")
 source("budscar-count-utilities.R")
+source("analyze-two-color-trackscar.R")
 
 timeseriesCounts <- read.csv("2016-Maxwell-Magwene-two-color-trackscar-timeseries.csv")
-heatStressCandidatesWithAge <- read.csv("2016-Maxwell-Magwene-two-color-trackscar.csv", as.is=T)
-
-
-haploidCounts <- subset(heatStressCandidatesWithAge,
-                        folder %in% c("2015-03-31_S288C_30C",
-                                      "2015-04-01_S288C_30C",
-                                      "2014_03_11_WGA_microscopy")) %>%
-    subset(strain %in% c("CMY1","1638"))
 
 fig1Counts <-
     haploidCounts  %>% 

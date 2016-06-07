@@ -37,7 +37,7 @@ fig2b =
                          values=c("brown", wes_palette("Rushmore")[-2]))
 
 
-pdf("figures/figure2.pdf", width=3.34, height=4, useDingbats=FALSE)
+pdf("figure2.pdf", width=3.34, height=4, useDingbats=FALSE)
 grid.arrange(fig2a,
              fig2b,
              nrow = 2, ncol=1
