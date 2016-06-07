@@ -115,32 +115,191 @@ script, please email the corresponding author of the paper.
 
 ------------------------------------------------------------
 
++ folder :: The name of the folder containing the original data
++ experiment_ID	:: The experiment ID of the data
++ counts_file :: The name of the file containing the original data
++ sampling :: The method of sampling used -- either "random" or
+     "for_age". "Random" means the cells were imaged by moving in a
+     transect along the slide and imaging each cell that was positive
+     for the first stain. "for_age" means that older cells were sought
+     out specifically. 
++ temp :: The temperature that the data was collected at.
++ media :: The media that the cells were grown in 
++ who_counted :: Who counted the buds (CSM = Colin S. Maxwell)
++ number_of_colors :: Either "2" or "3" color TrackScar
++ time :: Hours between stains
++ strain :: CMY (Colin Maxwell Yeast) number and the temperature. See
+     Table S1 for a mapping from CMY numbers to other data.
++ growth :: Number of new scars produced during the experiment (should
+     be called 'fecundity', but is called 'growth' for historical
+     reasons). growth = second - first
++ first	:: Number of scars stained with the first stain
++ second :: The number of scars stained with the second stain.
++ mitos :: The mito morphology class of the cell: 't' = threads; 'c' =
+     clumps; 'tc' = thread & clumps; 'n' = no mitochondria.
+
+** 2016-Maxwell-Magwene-three-color-trackscar.csv
+
+This contains the data for the three color trackscar experiments that
+were analyzed during the experiment. The original design of these
+experiments let recover after heat stress at either 30C or 37C for
+either 3 or 6 hrs. The 3hr recovery data was not used in the paper and
+is not included in this file. The 37C recovery data is only used for
+its first interval as a two color TrackScar experiment. This file was
+generated from the original count data files by the script
+[[file:process-three-color-trackscar.R]]. To get the actual raw data in
+the script, please email the corresponding author of the paper.
+
+------------------------------------------------------------
+
 - folder :: The name of the folder containing the original data
-- experiment_ID	:: The experiment ID of the data
+- counts_file :: The name of the file containing the original data
+- experiment :: The experiment ID of the data
+- sampling :: The method of sampling used -- either "random" or
+     "for_age". "Random" means the cells were imaged by moving in a
+     transect along the slide and imaging each cell that was positive
+     for the first stain. "for_age" means that older cells were sought
+     out specifically.
+- who_counted :: Who counted the buds (CSM = Colin S. Maxwell)
+- temp :: The temperature that the data was collected at.
+- strain :: The PMY (Paul Magwene Yeast) number of the strain. For a
+     mapping to YJM numbers reported in the text, see the file
+     [[file:PMY_to_YJM.csv]].
+- growth :: Number of new scars produced during the experiment (should
+     be called 'fecundity', but is called 'growth' for historical
+     reasons). growth = last - first
+- growth1 :: Number of buds between the first and second stain
+- growth2 :: Number of buds between the second and third stain
+- first :: Number of scars stained with the first stain
+- last :: Number of scars stained with the third stain
+- recoveryTemp :: The temperature the cells were incubated in during
+     the recovery period
+- recoveryTime :: The length of time the cells were incubated during
+     the recovery period.
+
+** 2016-Maxwell-Magwene-two-color-trackscar-timeseries.csv
+
+This data is two color TrackScar experiments where the time between
+the first and the second stain varied between one and six hours. The
+file was created by the script [[file:process-two-color-trackscar.R]]. To
+get the actual raw data in the script, please email the corresponding
+author of the paper.
+
+------------------------------------------------------------
+
+- folder :: The name of the folder containing the original data
+- experiment_ID	::  The experiment ID of the data
 - counts_file :: The name of the file containing the original data
 - sampling :: The method of sampling used -- either "random" or
      "for_age". "Random" means the cells were imaged by moving in a
      transect along the slide and imaging each cell that was positive
      for the first stain. "for_age" means that older cells were sought
-     out specifically. 
+     out specifically.
 - temp :: The temperature that the data was collected at.
 - media :: The media that the cells were grown in 
 - who_counted :: Who counted the buds (CSM = Colin S. Maxwell)
-- number_of_colors :: Either "2" or "3" color TrackScar
-- time :: Hours between stains
-- strain :: CMY (Colin Maxwell Yeast) number and the temperature. See
-     Table S1 for a mapping from CMY numbers to other data.
+- number_of_colors ::  Either "2" or "3" color TrackScar
+- time :: How many hours between the first and second strains
+- strain :: The YJM number of the strain. YJM stands for 'Yeast John
+     McCusker'. These are the original stocks for the 100 genomes
+     collection used throughout these experiments that the PMY numbers
+     are derived from
+- replicate :: Replicate number
 - growth :: Number of new scars produced during the experiment (should
      be called 'fecundity', but is called 'growth' for historical
      reasons). growth = second - first
 - first	:: Number of scars stained with the first stain
-- second :: The number of scars stained with the second stain.
-- mitos :: The mito morphology class of the cell: 't' = threads; 'c' =
-     clumps; 'tc' = thread & clumps; 'n' = no mitochondria.
+- last :: The number of scars stained with the second stain.
 
-** 2016-Maxwell-Magwene-three-color-trackscar.csv
-
-
-
-** 2016-Maxwell-Magwene-two-color-trackscar-timeseries.csv
 ** 2016-Maxwell-Magwene-two-color-trackscar.csv
+
+These data are two color TrackScar experiments where the time between
+the first and the second stain is six hours. The file was created by
+the script [[file:process-two-color-trackscar.R]]. To get the actual raw
+data in the script, please email the corresponding author of the
+paper.
+
+------------------------------------------------------------
+
+- folder :: The name of the folder containing the original data
+- experiment_ID	::  The experiment ID of the data
+- counts_file :: The name of the file containing the original data
+- sampling :: The method of sampling used -- either "random" or
+     "for_age". "Random" means the cells were imaged by moving in a
+     transect along the slide and imaging each cell that was positive
+     for the first stain. "for_age" means that older cells were sought
+     out specifically.
+- temp :: The temperature that the data was collected at.
+- media :: The media that the cells were grown in 
+- who_counted :: Who counted the buds (CSM = Colin S. Maxwell)
+- number_of_colors ::  Either "2" or "3" color TrackScar
+- time :: How many hours between the first and second strains
+- strain :: The PMY (Paul Magwene Yeast) number of the strain. For a
+     mapping to YJM numbers reported in the text, see the file
+     [[file:PMY_to_YJM.csv]].
+- replicate :: Replicate number
+- growth :: Number of new scars produced during the experiment (should
+     be called 'fecundity', but is called 'growth' for historical
+     reasons). growth = second - first
+- first	:: Number of scars stained with the first stain
+- last :: The number of scars stained with the second stain.
+
+** heat-stress-candidates.csv
+
+This is a file that gives a list of the strains sensitive to growth at
+35.5C that were examined using TrackScar. The file was originally
+produced by the script [[file:analyze-growth-curves.R]], but the name was
+changed and was annotated when it became apparent that some strains
+couldn't be analyzed using TrackScar. 
+
+------------------------------------------------------------
+
+- PMY :: The PMY (Paul Magwene Yeast) number of the strain. For a
+     mapping to YJM numbers reported in the text, see the file
+     [[file:PMY_to_YJM.csv]].
+- ratioMaxGrowth :: Growth at 35.5C/30C
+- maxGrowth30C :: Growth rate at 30C
+- maxGrowth35halfC :: Growth rate at 35.5C
+- maxGrowth37C :: Growth rate at 37C
+- exclusion_reason :: If it was excluded from subsequent analysis, why?
+
+** PMY_to_YJM.csv
+
+This is a mapping between the 100 genomes PMY (Paul Magwene Yeast)
+numbers and YJM (Yeast John McCusker) numbers.
+
+------------------------------------------------------------
+
+- PMY :: The PMY number
+- Strain :: The YJM number
+
+* Scripts used to generate the data files
+
+All scripts that begin with the name 'process' were run to generate
+data for the Dryad submission using files that will not be submitted
+to Dryad. The scripts filter data to contain only the data needed in
+the paper and annotate it with the appropriate metadata. Since these
+scripts rely on unsubmitted data, they cannot be run but are submitted
+to allow the data processing steps to be examined.
+
+- [[file:process-growth-curves.R]]
+- [[file:process-mito-trackscar-data.R]]
+- [[file:process-two-color-trackscar.R]]
+- [[file:process-three-color-trackscar.R]]
+
+* Miscellaneous code
+
+- [[file:budscar-count-utilities.R]] :: Miscellaneous files for handling
+     trackscar data
+- [[file:fig-theme.R]] :: A ggplot2 theme used in the figures
+- [[file:load-libraries.R]] :: Loads all the libraries used in the analysis
+- [[file:tecan.R]] :: Functions to deal with the awful ASCII export from a
+     Tecan Sunrise.
+
+* Scripts used to create shared data sets
+
+- analyze-growth-curves.R
+- analyze-linear-models.R
+- analyze-S288C-trackscar.R
+- analyze-three-color-trackscar.R
+- analyze-two-color-trackscar.R
