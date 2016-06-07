@@ -16,7 +16,9 @@ look at this document in a web-browser, we recommend cloning the repo
 and examining [[file:README.html][this HTML]] document that was exported from org-mode instead.
 
 The scripts used to produce the figures are stand-alone files linked
-to in the section [[figs][Scripts used to generate figures]] 
+to in the section [[figs][Scripts used to generate figures]].
+
+This code is also hosted on [[https://github.com/magwenelab/trackscar-dryad][github]].
 
 Statistics referenced in the text are listed in the sections
 [[results][Statistics for Results]] and [[supp][Statistics for Supplementary Results]]. The
