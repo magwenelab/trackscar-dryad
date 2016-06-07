@@ -28,9 +28,10 @@ below it, giving the statistic of interest.
 
 * Requirements
 
-The analysis is written in the R programming language. See the
-section [[session][Session Info]] for the version of R and the packages used to run
-these analyses.
+The analysis is written in the R programming language. See the section
+[[session][Session Info]] for the version of R and the packages used to run these
+analyses. The scripts assume that all data data and scripts are in the
+same folder.
 
 * Files in this submission
 
