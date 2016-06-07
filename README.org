@@ -280,7 +280,8 @@ data for the Dryad submission using files that will not be submitted
 to Dryad. The scripts filter data to contain only the data needed in
 the paper and annotate it with the appropriate metadata. Since these
 scripts rely on unsubmitted data, they cannot be run but are submitted
-to allow the data processing steps to be examined.
+to allow the data processing steps to be examined. See above for which
+scripts generated which files.
 
 - [[file:process-growth-curves.R]]
 - [[file:process-mito-trackscar-data.R]]
@@ -298,8 +299,29 @@ to allow the data processing steps to be examined.
 
 * Scripts used to create shared data sets
 
-- analyze-growth-curves.R
-- analyze-linear-models.R
-- analyze-S288C-trackscar.R
-- analyze-three-color-trackscar.R
-- analyze-two-color-trackscar.R
+All scripts that begin with the name 'analyze' are used to process
+data in a way that gets reused across multiple figures or code
+blocks. They will all run as self-contained scripts, but most don't
+generate  output, they just make certain datasets available.
+
+- [[file:analyze-growth-curves]]
+- [[file:analyze-linear-models.R]]
+- [[file:analyze-S288C-trackscar.R]]
+- [[file:analyze-three-color-trackscar.R]]
+- [[file:analyze-two-color-trackscar.R]]
+
+* Scripts used to generate figures
+
+- [[file:generate-figures.R]]
+- [[file:figure-2.R]]
+- [[file:figure-3.R]]
+- [[file:figure-4.R]]
+- [[file::figure-5.R]]
+- [[file:figure-6.R]]
+- [[file:figure-S1.R]]
+- [[file:figure-S2.R]]
+- [[file:figure-S3.R]]
+- [[file:figure-S4.R]]
+- [[file:figure-S5.R]]
+- [[file:figure-S6.R]]
+- [[file:figure-S7.R]]
