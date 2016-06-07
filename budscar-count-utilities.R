@@ -56,31 +56,10 @@ getAllCounts <- function( indexFile, cD){
    )
 }
 
-
-bootStrap <- function( x, fxn = mean, iter = 500, n=0.25){
-    if( n < 1 ){
-        # if argument n is a fraction, round up the percentage
-        # of the vector
-        n = ceiling( length(x) * n )
-    }
-    replicate(
-        iter,
-        {
-            fxn(sample( x, size=n, replace=TRUE))
-        }
-        )
-}
-
-permutationTest <- function( x, grouping, fxn = mean, iter = 100){
-    grouping <- as.character(grouping)
-    observed <- var(sapply( split(x,grouping), fxn))
-    perms <- replicate(
-        iter,
-        var(sapply( split(x,sample(grouping)), fxn)))
-    sum(perms >= observed)/iter
-}
-
 mean_cl_sem <- function(x){
+    ## This originally just computed the standard error of the mean
+    ## for ggplot, but was subsequently supplemented to calculate some
+    ## other things too. This is a kludge and should be fixed.
     x <- x[!is.na(x)]
     data.frame( y = mean(x),
                ymax = mean(x) + sd(x)/sqrt(length(x)),
@@ -93,22 +72,6 @@ mean_cl_sem <- function(x){
                min = min(x)
                )
 }
-
-mean_cl_sd <- function(x){
-    x <- x[!is.na(x)]
-    data.frame( y = mean(x),
-               ymax = mean(x) + sd(x),
-               ymin = mean(x) - sd(x),
-               n = length(x),
-               percentZero = sum(x == 0)/length(x),
-               percentUnder3 = sum(x < 3)/length(x),
-               percentUnder4 = sum(x < 4)/length(x),
-               max = max(x),
-               min = min(x)
-      )
-}
-    
-    
     
 getGrowthByFirst <- function( anExperiment, whatOrder = "first", sem=FALSE){
     ## This expects to be passed an experiment's worth of data.
