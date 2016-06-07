@@ -1,4 +1,4 @@
-#+TITLE: Data and Analysis for The Quick and the Dead
+#+TITLE: Data and Analysis for "The Quick and the Dead"
 #+AUTHOR: Colin S Maxwell and Paul M Magwene
 #+DATE: June 2016
 
@@ -8,12 +8,12 @@ This document describes the data submitted to the Dryad repository for
 the paper "The Quick and the Dead: Microbial Demography at the Yeast
 Thermal Limit" and provides links to the code (or the code itself)
 used to generate figures and the statistical analysis in the
-paper.This document is written in [[http:orgmode.org][org-mode]] format, and is best viewed
+paper. This document is written in [[http:orgmode.org][org-mode]] format, and is best viewed
 using emacs--an open-source text editor. If this document is viewed on
 github, links don't necessarily point to the correct sections, and the
 results of source blocks (see below) are not displayed. If you want to
-look at this document in a web-browser, we recommend [[file:README.html][this HTML]]
-document that was exported from org-mode.
+look at this document in a web-browser, we recommend cloning the repo
+and examining [[file:README.html][this HTML]] document that was exported from org-mode instead.
 
 The scripts used to produce the figures are stand-alone files linked
 to in the section [[figs][Scripts used to generate figures]] 
@@ -26,10 +26,9 @@ below it, giving the statistic of interest.
 
 * Requirements
 
-The scripts and data files should all be in the same folder. The
-analysis is written in the programming language R. See the section
-[[session][Session Info]] for the version of R and the packages used to run these
-analyses.
+The analysis is written in the R programming language. See the
+section [[session][Session Info]] for the version of R and the packages used to run
+these analyses.
 
 * Files in this submission
 
