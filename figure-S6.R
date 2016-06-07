@@ -1,5 +1,5 @@
 source("load-libraries.R")
-source("process-two-color-trackscar.R")
+source("analyze-two-color-trackscar.R")
 source("fig-theme.R")
 
 img060 =   heatStressCandidates %>%
