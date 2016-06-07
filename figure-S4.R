@@ -5,18 +5,18 @@ source("fig-theme.R")
 YJM <- read.csv("2016-Maxwell-Magwene-PMY-to-YJM.csv")
 
 slowStrains <- subset(heatStressCandidatesMean,
-                      mean_37C/mean_30C < 0.93)$strain
+                      mean_35_5C/mean_30C < 0.93)$strain
 
 strainMapping <- YJM$Strain
 names(strainMapping) <- as.character(YJM$PMY)
 
 figS4 =
     heatStressCandidates %>%
-    subset(temp %in% c("30C", "37C")) %>% 
+    subset(temp %in% c("30C", "35.5C")) %>% 
     transform( sensitive = strain %in% slowStrains) %>%
     transform(sensitive = ifelse(sensitive, "sensitive", "robust")) %>%
     subset(strain != "1529") %>% # No 30C data
-    subset(strain != "1554") %>% # Increases at 37C -> probably not good 
+    subset(strain != "1554") %>% # Big increase at 37C -> probably artifact
     subset(growth > 0) %>%
     transform( strain= strainMapping[ as.character(strain) ]) %>%
     ggplot(aes(x=growth, col=temp))+

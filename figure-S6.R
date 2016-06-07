@@ -8,7 +8,7 @@ img060 =   heatStressCandidates %>%
                               levels=c("1587", "1513", "1523"),
                               labels=c("S288C", "YJM693", "YJM996"))) %>% 
     count(c("strain","temp","first")) %>%
-    subset(temp %in% c("30C", "37C")) %>% 
+    subset(temp %in% c("30C", "35.5C")) %>% 
     ddply(.(strain, temp),
           plyr::mutate,
           scaled.freq=freq/sum(freq)) %>%

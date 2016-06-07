@@ -61,7 +61,6 @@ heatStressCandidatesWithAge <-
           recoveryCountsForMortality[,colnames(heatStressCandidatesWithAge)]) # defined in process-three-color-trackscar.R
 
 ## include the haploid S288C data for fig S1
-
 ## These are the haploid S288C data shown to compare mother cell
 ## and daughter cell fecundity
 haploidCounts <- subset(allCounts,
@@ -72,7 +71,13 @@ haploidCounts <- subset(allCounts,
 heatStressCandidatesWithAge <- rbind(heatStressCandidatesWithAge,
                                      haploidCounts[,colnames(heatStressCandidatesWithAge)])
 
-write.csv(transform(heatStressCandidatesWithAge),
+## Fix the off by 1.5C error in the incubator temperatures
+heatStressCandidatesWithAge <- heatStressCandidatesWithAge %>%
+    transform(temp = factor(gsub("37", "35.5", as.character(temp)))) %>%
+    transform(temp = factor(gsub("38.5", "37", as.character(temp)))) %>%
+    transform(temp = factor(gsub("40", "38.5", as.character(temp))))
+
+write.csv(heatStressCandidatesWithAge,
           "2016-Maxwell-Magwene-two-color-trackscar.csv", row.names=FALSE)
 
 ## This is a timeseries experiment with different number of hours
@@ -82,6 +87,7 @@ timeseriesCounts <- read.csv(
     file.path(countsDir,
               "20140321_bud_counts_combined.csv")) %>%
     transform(growth=second-first)
+
 with(timeseriesCounts,
      data.frame(
          folder="2014-03-21_WGA_calibration2",
@@ -98,6 +104,7 @@ with(timeseriesCounts,
          growth=growth,
          first=first,
          last=second)) %>%
-    write.csv("2016-Maxwell-Magwene-two-color-trackscar-timeseries.csv",row.names=F)
+    write.csv("2016-Maxwell-Magwene-two-color-trackscar-timeseries.csv",
+              row.names=F)
                                  
 

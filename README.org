@@ -299,6 +299,13 @@ scripts rely on unsubmitted data, they cannot be run but are submitted
 to allow the data processing steps to be examined. See above for which
 scripts generated which files.
 
+Each script dealing with TrackScar data includes a line that subtracts
+1.5C from the temperature of TrackScar data above 30C. This is because
+the incubator that the TrackScar data was collected in was found to be
+too high for these temperatures. To keep consistent, the data was
+annotated with the incubator's temperature, but it is corrected here
+for the ease of subsequent interpretation.
+
 ------------------------------------------------------------
 
 - [[file:process-growth-curves.R]]
@@ -383,18 +390,18 @@ The following code blocks justify the statistics cited in the main text.
    listOfData = list(
        ## These cells were grown for 6 hr at 37C, then were allowed
        ## to recovery at 30C.
-       live37 = subset(
+       live35_5 = subset(
                recoveryCounts,
                (growth2 > 0) &
                (strain %in% strains) &
-               (temp %in% c("37C", "41.5C")) & # S288C recovery is at 41.5
+               (temp %in% c("35.5C", "40C")) & # S288C recovery is at 40
                (recoveryTemp == "30C recovery") &
                (recoveryTime == "6 hr recovery"))[,c("growth1", "first", "experiment", "strain")],
-       dead37 = subset(
+       dead35_5 = subset(
                recoveryCounts,
                (growth2 == 0) &
                (strain %in% strains) &
-               (temp %in% c("37C", "41.5C")) &
+               (temp %in% c("35.5C", "40C")) &
                (recoveryTemp == "30C recovery") &
                (recoveryTime == "6 hr recovery"))[,c("growth1", "first", "experiment", "strain")],
        ## This is the 30C data to compare it to
@@ -427,7 +434,7 @@ The following code blocks justify the statistics cited in the main text.
    ddply(liveDeadUnstressed,
          .(strain),
          plyr::summarize, 
-         p = ks.test(growth[type == "live37"],
+         p = ks.test(growth[type == "live35_5"],
                      growth[type == "noheat"])$p.value)
 
    #count(liveDeadUnstressed, c("strain", "type"))
@@ -457,7 +464,7 @@ and p=0.68, respectively).
 #+BEGIN_QUOTE
 In contrast, at 35.5°C, replicative age significantly affects the
 average fecundity of a cohort in the strains YJM693 and YJM996 (linear
-model, p=0.048 and p=0.00076, respectively).
+model, p=0.00059 and p=0.00076, respectively).
 #+END_QUOTE
 
 #+BEGIN_SRC R :exports both :colnames yes
@@ -471,13 +478,13 @@ model, p=0.048 and p=0.00076, respectively).
       plyr::summarize(
       strain,
       `30C` = round(`30C`, 5),
-                `37C` = round(`37C`, 5))
+      `35.5C` = round(`35.5C`, 5))
 #+END_SRC
 
 #+RESULTS:
-| strain |     30C |     37C |
+| strain |     30C |   35.5C |
 |--------+---------+---------|
-|   1513 | 0.01564 | 0.04885 |
+|   1513 | 0.01564 | 0.00059 |
 |   1523 | 0.68425 | 0.00076 |
 |   1587 | 0.07558 | 0.57134 |
 
@@ -504,17 +511,17 @@ lmSummaries2 <- ldply(lm2,
 | temp |       p |
 |------+---------|
 |   30 | 0.92532 |
-|   37 |  0.9974 |
-| 38.5 | 0.55688 |
-|   40 | 0.59948 |
-| 41.5 | 0.59471 |
+| 35.5 |  0.9974 |
+|   37 | 0.55688 |
+| 38.5 | 0.59948 |
+|   40 | 0.59471 |
 
 *** Linear model fecundity slopes
 
 #+BEGIN_QUOTE
-Interestingly, while YJM693 cells produce an average of 0.14 ± 0.13
+Interestingly, while YJM693 cells produce an average of 0.21 ± 0.12
 fewer daughters in six hours per cohort when heat stressed, YJM996
-cells produce an average of 0.37 ± 0.15 more daughters in six hours
+cells produce an average of 0.33 ± 0.17 more daughters in six hours
 per cohort (intervals are 95% confidence intervals of the
 mean)(Fig. 5a).
 #+END_QUOTE
@@ -530,13 +537,13 @@ This is the estimate of the relationship between the age and fecundity
       plyr::summarize(
          strain,
          `30C` = round(`30C`, 3),
-         `37C` = round(`37C`, 3))
+         `35.5C` = round(`35.5C`, 3))
 #+end_src
 
 #+RESULTS:
-| strain |    30C |    37C |
+| strain |    30C |  35.5C |
 |--------+--------+--------|
-|   1513 |    0.1 | -0.139 |
+|   1513 |    0.1 | -0.218 |
 |   1523 |  0.041 |  0.334 |
 |   1587 | -0.085 | -0.021 |
 
@@ -548,13 +555,13 @@ This is the estimate of the relationship between the age and fecundity
       plyr::summarize(
          strain,
          `30C` = round(`30C` * 1.98, 3),
-         `37C` = round(`37C` * 1.98, 3))
+         `35.5C` = round(`35.5C` * 1.98, 3))
 #+end_src
 
 #+RESULTS:
-| strain |   30C |   37C |
+| strain |   30C | 35.5C |
 |--------+-------+-------|
-|   1513 | 0.073 | 0.137 |
+|   1513 | 0.073 | 0.118 |
 |   1523 | 0.196 | 0.172 |
 |   1587 | 0.088 | 0.071 |
 
@@ -574,7 +581,7 @@ unit of replicative age in this strain during heat stress.
 
   mortality1513 <- heatStressCandidatesWithAge %>%
       subset(strain %in% c(1513)) %>%
-      subset(temp == "37C") %>%
+      subset(temp == "35.5C") %>%
       transform(dead = ifelse(growth < 4, 1, 0)) %>%
       glm(dead~first, data = .,  family="binomial")
   
@@ -594,52 +601,52 @@ glm(formula = dead ~ first, family = "binomial", data = .)
 
 Deviance Residuals: 
     Min       1Q   Median       3Q      Max  
--1.6346  -0.9263  -0.8586   1.3691   1.5340  
+-1.6922  -0.9423  -0.8705   1.3461   1.5192  
 
 Coefficients:
             Estimate Std. Error z value Pr(>|z|)    
-(Intercept) -0.99191    0.08496 -11.675  < 2e-16 ***
-first        0.18390    0.02572   7.149 8.72e-13 ***
+(Intercept) -0.96851    0.07827 -12.373  < 2e-16 ***
+first        0.19339    0.02436   7.938 2.06e-15 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 (Dispersion parameter for binomial family taken to be 1)
 
-    Null deviance: 2452.1  on 1849  degrees of freedom
-Residual deviance: 2399.9  on 1848  degrees of freedom
-AIC: 2403.9
+    Null deviance: 2860.2  on 2144  degrees of freedom
+Residual deviance: 2795.5  on 2143  degrees of freedom
+AIC: 2799.5
 
 Number of Fisher Scoring iterations: 4
 
-Confidence intervals:
+oConfidence intervals:
 
                  2.5 %     97.5 %
-(Intercept) -1.1595791 -0.8264455
-first        0.1337114  0.2346053
+(Intercept) -1.1228875 -0.8159817
+first        0.1458738  0.2414310
 #+end_example
 
 Since the parameter estimates are log-odds, we exponentiate to get the
-odds. The estimate of the increase in mortality is 20%:
+odds. The estimate of the increase in mortality is 21%:
 
 #+BEGIN_SRC R :exports both
 
-exp(0.183)
+exp(0.19339)
 
 #+END_SRC
 
 #+RESULTS:
-: 1.20081440808083
+: 1.21335591006032
 
 95% confidence interval width:
 
 #+BEGIN_SRC R :exports both
 
-exp(0.183) - exp(0.13)
+exp(0.18319339) - exp(0.131458738)
 
 #+END_SRC
 
 #+RESULTS:
-: 0.06198602475620
+: 0.0605558082175794
 
 * <<supp>> Statistics for Supplementary results
   
@@ -796,12 +803,12 @@ The following code blocks justify the statistics cited in the supplement.
 
  #+BEGIN_SRC R :exports both :results output
  source("analyze-two-color-trackscar.R")
- with(subset(candidateGrowth, !is.na(mean_37C)),
-      cor(mean_37C, maxGrowth35halfC))^2
+ with(subset(candidateGrowth, !is.na(mean_35_5C)),
+      cor(mean_35_5C, maxGrowth35halfC))^2
  #+END_SRC
 
  #+RESULTS:
- : [1] 0.5762419
+ : [1] 0.5754468
 
 ** Heat stress can alter the distribution of ages in a population
 
@@ -823,7 +830,7 @@ The following code blocks justify the statistics cited in the supplement.
   subset( heatStressCandidates, 
          strain %in% c(1587, 1513, 1523)) %>% 
       dlply(.(strain), with, 
-            ks.test(first[temp == "30C"], first[temp == "37C"]))
+            ks.test(first[temp == "30C"], first[temp == "35.5C"]))
 #+END_SRC
 
 #+RESULTS:
@@ -832,8 +839,8 @@ $`1513`
 
 	Two-sample Kolmogorov-Smirnov test
 
-data:  first[temp == "30C"] and first[temp == "37C"]
-D = 0.04288, p-value = 0.3212
+data:  first[temp == "30C"] and first[temp == "35.5C"]
+D = 0.042929, p-value = 0.2773
 alternative hypothesis: two-sided
 
 
@@ -841,7 +848,7 @@ $`1523`
 
 	Two-sample Kolmogorov-Smirnov test
 
-data:  first[temp == "30C"] and first[temp == "37C"]
+data:  first[temp == "30C"] and first[temp == "35.5C"]
 D = 0.16369, p-value = 1.737e-07
 alternative hypothesis: two-sided
 
@@ -850,7 +857,7 @@ $`1587`
 
 	Two-sample Kolmogorov-Smirnov test
 
-data:  first[temp == "30C"] and first[temp == "37C"]
+data:  first[temp == "30C"] and first[temp == "35.5C"]
 D = 0.042596, p-value = 0.6035
 alternative hypothesis: two-sided
 

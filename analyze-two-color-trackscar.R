@@ -32,11 +32,12 @@ heatStressCandidatesMean <-
           .(strain, temp),
           plyr::summarize,
           mean = mean(growth, na.rm=T)) %>%
-    melt(id.vars=c("strain", "temp")) %>%
-    dcast(strain~variable+temp) %>%
+    melt(id.vars=c("strain", "temp")) %>% # replace decimal with underscore
+    transform( temp = gsub("\\.", "_", as.character(temp))) %>% 
+    dcast(strain~variable+temp)  %>% 
     plyr::mutate(
         strain = strain,
-        ratioMean = mean_37C/mean_30C)
+        ratioMean = mean_35_5C/mean_30C)
 
 candidateGrowth <- merge(maxGrowthCast2,
                          heatStressCandidatesMean,

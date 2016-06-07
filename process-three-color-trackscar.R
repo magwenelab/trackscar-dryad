@@ -34,8 +34,10 @@ recoveryCounts <- recoveryFiles %>%
                   labels=c("30C recovery", "37C recovery")),
               recoveryTime = paste(recoveryTime, "hr recovery"))
 
+    
+
 ## Write a file for Dryad
-plyr::summarize(recoveryCounts,
+for_dryad <- plyr::summarize(recoveryCounts,
                 folder,
                 counts_file,
                 experiment,
@@ -49,6 +51,20 @@ plyr::summarize(recoveryCounts,
                 first,
                 last,
                 recoveryTemp,
-                recoveryTime) %>% 
+                recoveryTime)
+
+## Fix the off by 1.5C error in the incubator temperatures
+for_dryad %>% 
+    transform(temp = factor(
+                  gsub("37",
+                       "35.5",
+                       as.character(temp)))) %>% 
+    transform(recoveryTemp = factor(
+                  gsub("37",
+                       "35.5",
+                       as.character(recoveryTemp)))) %>%
+    transform(temp = factor(
+                  gsub("41.5",
+                       "40", as.character(temp)))) %>% 
     write.csv("2016-Maxwell-Magwene-three-color-trackscar.csv",
               row.names=FALSE)

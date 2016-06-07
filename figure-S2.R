@@ -6,7 +6,7 @@ source("analyze-two-color-trackscar.R")
 
 
 figS2 <- ggplot(candidateGrowth,
-                aes(mean_37C/6, # convert to scars/hr
+                aes(mean_35_5C/6, # convert to scars/hr
                     maxGrowth35halfC * 3600, # convert to OD/hr
                     label=PMY))+
     geom_point()+fig_theme+

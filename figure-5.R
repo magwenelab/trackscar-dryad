@@ -32,7 +32,7 @@ fig5b =  heatStressCandidatesGrowthByFirstAndReplicate %>%
                   return(NULL)
               }
               x})%>%
-    subset(temp %in% c("37C")) %>%
+    subset(temp %in% c("35.5C")) %>%
     ddply( .(strain),
           function(x){
               if( unique(x$strain) == 1513){

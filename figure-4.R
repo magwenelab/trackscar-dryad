@@ -5,7 +5,7 @@ source("budscar-count-utilities.R")
 source("fig-theme.R")
 
 fig4  = recoveryCounts %>%
-    subset((temp %in% c("37C","41.5C")) &
+    subset((temp %in% c("35.5C","40C")) &
            (recoveryTime == "6 hr recovery") &
            (recoveryTemp == "30C recovery")) %>%
     subset(!is.na(growth1) & !is.na(growth2)) %>%

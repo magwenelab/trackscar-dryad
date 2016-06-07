@@ -47,6 +47,13 @@ dat <- with(dat,
         growth=growth,
         first=first,
         second=second,
-        mitos=mitos))
+        mitos=mitos)) %>% # Fix the off by 1.5C error from incubator
+    transform(temp = factor(
+                  gsub("37",
+                       "35.5",
+                       as.character(temp))),
+              strain = factor(gsub("37",
+                                   "35.5",
+                                   as.character(strain))))
 
 write.csv(dat, "2016-Maxwell-Magwene-mito-trackscar.csv", row.names=FALSE)
