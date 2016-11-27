@@ -18,7 +18,7 @@ maxGrowthCast <-
 ## Calculate the ratios of growth for each strain and temperature
 maxGrowthCast2 <-
     maxGrowth %>%
-    dcast(PMY ~ temp,
+    dcast(Strain + PMY ~ temp,
           value.var="maxGrowth",
           fun.aggregate= function(x) mean(x, na.rm=T)) %>%
     transform(ratioMaxGrowth = `35.5`/`30`,

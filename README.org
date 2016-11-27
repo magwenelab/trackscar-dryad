@@ -440,7 +440,7 @@ The following code blocks justify the statistics cited in the main text.
          p = ks.test(growth[type == "live35_5"],
                      growth[type == "noheat"])$p.value)
 
-   #count(liveDeadUnstressed, c("strain", "type"))
+   ##count(liveDeadUnstressed, c("strain", "type"))
  #+END_SRC
 
  #+RESULTS:
@@ -812,6 +812,45 @@ The following code blocks justify the statistics cited in the supplement.
 
  #+RESULTS:
  : [1] 0.5754468
+
+ #+BEGIN_SRC R :results output
+   source("analyze-two-color-trackscar.R")
+   candidateGrowth <-
+       subset(candidateGrowth, !is.na(mean_35_5C)) %>%
+       transform(sensitive = ratioMaxGrowth < 0.93)
+   print("Total correlation")
+   with(candidateGrowth,
+        cor(mean_35_5C, maxGrowth35halfC))^2
+   print("Robust strains correlation")
+   with(subset(candidateGrowth, !sensitive),
+        cor(mean_35_5C, maxGrowth35halfC))^2
+   print("Sensitive strains correlation")
+   with(subset(candidateGrowth, sensitive),
+        cor(mean_35_5C, maxGrowth35halfC))^2
+ #+END_SRC
+
+ #+RESULTS:
+ : [1] "Total correlation"
+ : [1] 0.5754468
+ : [1] "Robust strains correlation"
+ : [1] 0.505506
+ : [1] "Sensitive strains correlation"
+ : [1] 0.5693479
+
+
+ #+BEGIN_SRC R :results output
+   source("analyze-two-color-trackscar.R")
+   candidateGrowth <-
+       subset(candidateGrowth, !is.na(mean_35_5C)) %>%
+       transform(sensitive = ratioMaxGrowth < 0.93)
+
+   model0 = lm(mean_35_5C~maxGrowth35halfC, data = candidateGrowth)
+   model1 = lm(mean_35_5C~sensitive+maxGrowth35halfC, data = candidateGrowth)
+   model2 = lm(mean_35_5C~sensitive*maxGrowth35halfC, data = candidateGrowth)
+
+   anova(model0, model2, test="Chisq")
+   anova(model0, model1, test="Chisq")
+ #+END_SRC
 
 ** Heat stress can alter the distribution of ages in a population
 
